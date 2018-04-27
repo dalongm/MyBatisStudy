@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test">
 	<select id="findUserById" parameterType="int" resultType="cn.com.mybatis.po.User">
-		-- 如果输入参数是String或简单类型（基本数据类型），那么#{}中的值可以是任意数据，但是推荐使用“_parameter”
-		SELECT * FROM USER WHERE id=#{id} 
+		SELECT * FROM USER WHERE id=#{id}
 	</select>
 </mapper>
