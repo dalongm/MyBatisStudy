@@ -1,6 +1,7 @@
 package cn.com.mybatis.po;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User implements Serializable {
@@ -102,8 +103,9 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", gender=" + gender
-				+ ", email=" + email + ", province=" + province + ", city=" + city + ", birthday=" + birthday + "]";
+				+ ", email=" + email + ", province=" + province + ", city=" + city + ", birthday=" + sdf.format(birthday) + "]";
 	}
 	
 }
