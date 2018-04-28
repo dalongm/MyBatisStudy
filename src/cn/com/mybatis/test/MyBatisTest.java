@@ -45,7 +45,7 @@ public class MyBatisTest {
 	public void testInsert() throws IOException, ParseException {
 		SqlSession sqlSession = dataConn.getSqlSession();
 		User user = new User();
-		user.setUsername("孙佳2");
+		user.setUsername("孙佳");
 		user.setGender("女");
 		user.setPassword("6666");
 		user.setEmail("6666@126.com");

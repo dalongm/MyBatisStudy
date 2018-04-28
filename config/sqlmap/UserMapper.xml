@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test">
 	<!-- 通过ID查找用户 -->
-	<select id="findUserById" parameterType="int" resultType="cn.com.mybatis.po.User">
+	<select id="findUserById" parameterType="int" resultType="User">
 		<!-- 如果输入参数是String或简单类型（基本数据类型），那么#{}中的值可以是任意数据，
 		但是推荐使用“_parameter” -->
 		SELECT * FROM USER WHERE id=#{_parameter}
 	</select>
 	
 	<!-- 通过用户名模糊查找 -->
-	<select id="findUserByUsername" parameterType="String" resultType="cn.com.mybatis.po.User">
+	<select id="findUserByUsername" parameterType="String" resultType="User">
 		<!-- ${} 表示拼接SQL串 ，且只能用value代表其中的参数 -->
 		<!-- SELECT * FROM USER WHERE username LIKE '%${value}%' -->
 		SELECT * FROM USER WHERE username LIKE #{_parameter}
@@ -19,7 +19,7 @@
 	
 	<!-- 插入用户 -->
 	<!-- useGeneratedKeys="true" keyProperty="id" 设置使用自增主键，keyProperty对应Java对象的属性名 -->
-	<insert id="insertUser" parameterType="cn.com.mybatis.po.User" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		
 		<!-- 通过MySQL来获取刚插入记录的自增主键 -->
 		<!-- <selectKey keyProperty="id" order="AFTER" resultType="Integer">
@@ -35,7 +35,7 @@
 	</delete>
 	
 	<!-- 修改用户 -->
-	<update id="updateUserName" parameterType="cn.com.mybatis.po.User">
+	<update id="updateUserName" parameterType="User">
 		UPDATE user
 		SET username=#{username} 
 		WHERE id=#{id}

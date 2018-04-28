@@ -3,21 +3,59 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<!-- 配置时必须按照规定的顺序 （可省略部分配置）-->
+	
+	<!-- 引入外部配置文件 -->
+	<properties resource="db.properties">
+		<property name="username" value="root"/>
+		<property name="password" value="root"/>
+	</properties>
+
+	<!-- 全局参数配置 -->
 	<settings>
 		<setting name="logImpl" value="LOG4J" />
 	</settings>
+	
+	<!-- 别名设置 -->
+	<!-- 扫描包下面的JavaBean，批量定义别名，方便Mapper中的使用 -->
+	<typeAliases>
+		<package name="cn.com.mybatis.po"/>
+	</typeAliases>
+	
+	<!-- 类转换器 -->
+	<typeHandlers>
+		<typeHandler handler="cn.com.mybatis.test.DateTypeHandler" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+	</typeHandlers>
+	
+	<!-- 配置自定义对象工厂 -->
+	<objectFactory type="cn.com.mybatis.test.CartObjectFactory" />
+	
+	<!-- 插件（MyBatis中的拦截调用的机制“拦截器”） 
+		用于日志记录、权限控制、缓存管理等 -->
+	<plugins>
+		<plugin interceptor="cn.com.mybatis.test.QueryPlugin">
+			<property name="someProperty" value="100"/>
+		</plugin>
+	</plugins>
+	
+	<!-- 数据库环境配置 -->
 	<!-- 和Spring整合后 environments 配置将被废除 -->
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC"/>
+			
+			<!-- POOLED设置一个管理数据库连接的资源池，合理控制数据库的连接和关闭
+				UNPLOOED设置每次请求时打开和关闭连接 -->
 			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver"/>
-				<property name="url" value="jdbc:mysql://localhost:3307/mybatis_test?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"/>
-				<property name="username" value="root"/>
-				<property name="password" value="root"/>
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
 			</dataSource>
 		</environment>
 	</environments>
+	
+	<!-- SQL映射器 -->
 	<mappers>
 		<mapper resource="sqlmap/UserMapper.xml"/>
 	</mappers>
