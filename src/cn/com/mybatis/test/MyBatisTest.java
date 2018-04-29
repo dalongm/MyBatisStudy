@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import cn.com.mybatis.datasource.DataConnection;
+import cn.com.mybatis.mapper.CustomerMapper;
 import cn.com.mybatis.po.BatchCustomer;
 import cn.com.mybatis.po.BatchItem;
 import cn.com.mybatis.po.Customer;
@@ -160,6 +161,22 @@ public class MyBatisTest {
 			customer = batchItem.getCustomer();
 			System.out.println("订购用户姓名："+customer.getUsername());
 		}
+		sqlSession.close();
+	}
+	
+	/**
+	 * 测试Mapper动态代理
+	 * @throws Exception
+	 */
+	@Test
+	public void testFindCustomerOnMapper() throws Exception
+	{
+		SqlSession sqlSession = dataConn.getSqlSession();
+		// 获取Mapper代理
+		CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
+		// 执行Mapper代理对象的查询方法
+		Customer customer = customerMapper.findCustomerById(1);
+		System.out.println(customer);
 		sqlSession.close();
 	}
 }

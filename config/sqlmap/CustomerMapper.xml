@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.mybatis.mapper.CustomerMapper">
+	<select id="findCustomerById" parameterType="int" resultType="Customer">
+		SELECT * FROM customer WHERE cus_id=#{cus_id}
+	</select>
+	
+	<insert id="insertCustomer" parameterType="Customer">
+		INSERT INTO customer(username, acno, gender, phone)
+		VALUE(#{username},#{acno},#{gender},#{phone}))
+	</insert>
+	
+	<delete id="deleteCustomer" parameterType="int">
+		DELETE FROM customer WHERE cus_id = #{cus_id}
+	</delete>
+	
+	<update id="updateCustomerAcNo" parameterType="Customer">
+		UPDATE customer SET acno = #{acno} WHERE cus_id = #{cus_id}
+	</update>
+</mapper>
+

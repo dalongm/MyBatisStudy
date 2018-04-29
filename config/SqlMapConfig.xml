@@ -60,5 +60,6 @@
 	<!-- SQL映射器 -->
 	<mappers>
 		<mapper resource="sqlmap/UserMapper.xml"/>
+		<mapper resource="sqlmap/CustomerMapper.xml"/>
 	</mappers>
 </configuration>
