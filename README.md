@@ -9,5 +9,6 @@
 + Eclipse Oxygen
 + JDK 1.8
 + Tomcat 8.0
++ Mysql 5.7
 
 侵删

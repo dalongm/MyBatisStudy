@@ -41,4 +41,9 @@
 		WHERE id=#{id}
 	</update>
 	
+	<select id="findBatchCustomer" resultType="BatchCustomer">
+		SELECT batch.*, customer.username, customer.acno
+		FROM batch, customer
+		WHERE batch.cus_id = customer.cus_id
+	</select>
 </mapper>

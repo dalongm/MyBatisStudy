@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import cn.com.mybatis.datasource.DataConnection;
+import cn.com.mybatis.po.BatchCustomer;
 import cn.com.mybatis.po.User;
 
 public class MyBatisTest {
@@ -98,6 +99,15 @@ public class MyBatisTest {
 			}
 		}
 		
+	}
+	
+	@Test
+	public void testBatchCustomer() throws IOException {
+		SqlSession sqlSession = dataConn.getSqlSession();
+		List<BatchCustomer> bcList = sqlSession.selectList("test.findBatchCustomer");
+		for (BatchCustomer batchCustomer : bcList) {
+			System.out.println(batchCustomer);
+		}
 	}
 	
 }
