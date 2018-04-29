@@ -179,6 +179,51 @@ public class MyBatisTest {
 		System.out.println(customer);
 		sqlSession.close();
 	}
+	
+	/**
+	 * 测试MyBatis一级缓存
+	 * @throws Exception
+	 */
+	@Test
+	public void testFindCustomerCache1() throws Exception
+	{
+		SqlSession sqlSession = dataConn.getSqlSession();
+		// 获取Mapper代理
+		CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
+		// 执行Mapper代理对象的查询方法
+		Customer customer1 = customerMapper.findCustomerById(1);
+		System.out.println(customer1);
+		// 无任何中间日志输出，第二次查询是从一级缓存中获取的
+		Customer customer2 = customerMapper.findCustomerById(1);
+		System.out.println(customer2);
+		sqlSession.close();
+	}
+	
+	/**
+	 * 测试MyBatis一级缓存
+	 * @throws Exception
+	 */
+	@Test
+	public void testFindCustomerCache2() throws Exception
+	{
+		SqlSession sqlSession = dataConn.getSqlSession();
+		// 获取Mapper代理
+		CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
+		// 执行Mapper代理对象的查询方法
+		Customer customer1 = customerMapper.findCustomerById(1);
+		System.out.println(customer1);
+		
+		String acno= "22222";
+		customer1.setAcno(acno);
+		customerMapper.updateCustomerAcNo(customer1);
+		sqlSession.commit();
+		
+		// 在查询缓存数据之前，如果发生增删改等改变数据的操作（commit后），
+		// SqlSession会清空一级缓存
+		Customer customer2 = customerMapper.findCustomerById(1);
+		System.out.println(customer2);
+		sqlSession.close();
+	}
 }
 
 
