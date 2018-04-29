@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import cn.com.mybatis.datasource.DataConnection;
 import cn.com.mybatis.po.BatchCustomer;
+import cn.com.mybatis.po.BatchItem;
 import cn.com.mybatis.po.User;
 
 public class MyBatisTest {
@@ -108,6 +109,28 @@ public class MyBatisTest {
 		for (BatchCustomer batchCustomer : bcList) {
 			System.out.println(batchCustomer);
 		}
+		sqlSession.close();
+	}
+	
+	@Test
+	public void testBatchCustomerToMap() throws IOException {
+		SqlSession sqlSession = dataConn.getSqlSession();
+		List<BatchItem> bcList = sqlSession.selectList("test.findBatchCustomerToMap");
+		for (BatchItem batchCustomer : bcList) {
+			System.out.println(batchCustomer);
+		}
+		sqlSession.close();
+	}
+	
+	@Test
+	public void testBatchAndBatchDetail() throws IOException {
+		SqlSession sqlSession = dataConn.getSqlSession();
+		BatchItem batchItem = sqlSession.selectOne("test.findBatchAndBatchDetail");
+		if(batchItem!=null)
+		{
+			System.out.println(batchItem);
+		}
+		sqlSession.close();
 	}
 	
 }

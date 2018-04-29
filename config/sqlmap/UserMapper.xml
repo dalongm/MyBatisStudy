@@ -46,4 +46,43 @@
 		FROM batch, customer
 		WHERE batch.cus_id = customer.cus_id
 	</select>
+	
+	<resultMap type="BatchItem" id="BatchInfoMap">
+		<id column="batch_id" property="batch_id"/>
+		<result column="cus_id" property="cus_id"/>
+		<result column="number" property="number"/>
+		<result column="createtime" property="createtime" javaType="java.util.Date"/>
+		<result column="note" property="note"/>
+		<association property="customer" javaType="Customer">
+			<id column="cus_id" property="cus_id"/>
+			<result column="username" property="username"/>
+			<result column="acno" property="acno"/>
+			<result column="gender" property="gender"/>
+			<result column="phone" property="phone"/>
+		</association>
+	</resultMap>
+	
+	<select id="findBatchCustomerToMap" resultMap="BatchInfoMap">
+		SELECT batch.*, customer.*
+		FROM batch, customer
+		WHERE batch.cus_id = customer.cus_id
+	</select>
+	
+	<resultMap type="BatchItem" id="BatchAndBatchDetailResultMap" extends="BatchInfoMap">
+		<collection property="batchDetails" ofType="BatchDetail">
+			<id column="id" property="id"/>
+			<result column="batch_id" property="batch_id"/>
+			<result column="product_id" property="product_id"/>
+			<result column="product_num" property="product_num"/>
+		</collection>
+	</resultMap>
+	
+	<select id="findBatchAndBatchDetail" resultMap="BatchAndBatchDetailResultMap">
+		SELECT batch.*, customer.*, bd.id, bd.batch_id, bd.product_id, bd.product_num
+		FROM batch, customer, batchdetail as bd
+		WHERE batch.cus_id = customer.cus_id AND batch.batch_id = bd.batch_id
+	</select>
+	
+	
 </mapper>
+
