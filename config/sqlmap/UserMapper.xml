@@ -83,6 +83,68 @@
 		WHERE batch.cus_id = customer.cus_id AND batch.batch_id = bd.batch_id
 	</select>
 	
+	<resultMap type="Customer" id="UserAndProductsResultMap">
+		<!-- 客户信息 -->
+		<id column="cus_id" property="cus_id"/>
+		<result column="username" property="username"/>
+		<result column="acno" property="acno"/>
+		<result column="gender" property="gender"/>
+		<result column="phone" property="phone"/>
+		
+		<!-- 批次订单信息 -->
+		<collection property="batchList" ofType="Batch">
+			<id column="batch_id" property="batch_id"/>
+			<result column="cus_id" property="cus_id"/>
+			<result column="number" property="number"/>
+			<result column="createtime" property="createtime" javaType="java.util.Date"/>
+			<result column="note" property="note"/>
+			
+			<!-- 批次详情 -->
+			<collection property="batchDetails" ofType="BatchDetail">
+				<id column="id" property="id"/>
+				<result column="batch_id" property="batch_id"/>
+				<result column="product_id" property="product_id"/>
+				<result column="product_num" property="product_num"/>
+				
+				<!-- 理财产品信息 -->
+				<association property="finacialProduct" javaType="FinacialProduct">
+					<id column="product_id" property="id"/>
+					<result column="name" property="name"/>
+					<result column="price" property="price"/>
+					<result column="detail" property="detail"/>
+				</association>
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<select id="findUserAndProducts" resultMap="UserAndProductsResultMap">
+		SELECT customer.*,batch.*,batchdetail.*,finacial_products.*
+		FROM batch, customer, batchdetail,finacial_products
+		WHERE batch.cus_id = customer.cus_id
+		AND batchdetail.batch_id=batch.batch_id
+		AND finacial_products.product_id=batchdetail.product_id
+	</select>
+	
+	<!-- 查询所有批次订单信息 -->
+	<select id="findBatchUserLazyLoading" resultMap="BatchUserLazyLoadingResultMap">
+		SELECT * FROM batch
+	</select>
+	
+	<!-- 延迟加载的resultMap -->
+	<resultMap type="BatchItem" id="BatchUserLazyLoadingResultMap">
+		<id column="batch_id" property="batch_id"/>
+		<result column="cus_id" property="cus_id"/>
+		<result column="number" property="number"/>
+		<result column="createtime" property="createtime" javaType="java.util.Date"/>
+		<result column="note" property="note"/>
+		<!-- 实现延迟加载用户信息 -->
+		<association property="customer" javaType="Customer" select="findCustomerById" column="cus_id"/>
+	</resultMap>
+	
+	<!-- 获取用户信息 -->
+	<select id="findCustomerById" parameterType="int" resultType="Customer">
+		SELECT * FROM customer WHERE cus_id=#{_parameter}
+	</select>
 	
 </mapper>
 

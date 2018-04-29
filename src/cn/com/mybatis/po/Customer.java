@@ -1,11 +1,14 @@
 package cn.com.mybatis.po;
 
+import java.util.List;
+
 public class Customer {
 	private int cus_id;
 	private String username;
 	private String acno;
 	private String gender;
 	private String phone;
+	private List<Batch> batchList;
 
 	public int getCus_id() {
 		return cus_id;
@@ -47,10 +50,18 @@ public class Customer {
 		this.phone = phone;
 	}
 
+	public List<Batch> getBatchList() {
+		return batchList;
+	}
+
+	public void setBatchList(List<Batch> batchList) {
+		this.batchList = batchList;
+	}
+
 	@Override
 	public String toString() {
 		return "Customer [cus_id=" + cus_id + ", username=" + username + ", acno=" + acno + ", gender=" + gender
-				+ ", phone=" + phone + "]";
+				+ ", phone=" + phone + ", batchList=" + batchList + "]";
 	}
 
 }

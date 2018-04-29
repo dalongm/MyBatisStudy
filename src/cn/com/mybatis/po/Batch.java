@@ -1,6 +1,7 @@
 package cn.com.mybatis.po;
 
 import java.util.Date;
+import java.util.List;
 
 public class Batch {
 	private int batch_id;
@@ -8,6 +9,7 @@ public class Batch {
 	private String number;
 	private Date createtime;
 	private String note;
+	private List<BatchDetail> batchDetails;
 
 	public int getBatch_id() {
 		return batch_id;
@@ -49,10 +51,18 @@ public class Batch {
 		this.note = note;
 	}
 
+	public List<BatchDetail> getBatchDetails() {
+		return batchDetails;
+	}
+
+	public void setBatchDetails(List<BatchDetail> batchDetails) {
+		this.batchDetails = batchDetails;
+	}
+
 	@Override
 	public String toString() {
 		return "Batch [batch_id=" + batch_id + ", cus_id=" + cus_id + ", number=" + number + ", createtime="
-				+ createtime + ", note=" + note + "]";
+				+ createtime + ", note=" + note + ", batchDetails=" + batchDetails + "]";
 	}
 
 }

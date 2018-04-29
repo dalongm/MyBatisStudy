@@ -5,6 +5,7 @@ public class BatchDetail {
 	private int batch_id;
 	private int product_id;
 	private int product_num;
+	private FinacialProduct finacialProduct;
 
 	public int getId() {
 		return id;
@@ -38,10 +39,18 @@ public class BatchDetail {
 		this.product_num = product_num;
 	}
 
+	public FinacialProduct getFinacialProduct() {
+		return finacialProduct;
+	}
+
+	public void setFinacialProduct(FinacialProduct finacialProduct) {
+		this.finacialProduct = finacialProduct;
+	}
+
 	@Override
 	public String toString() {
 		return "BatchDetail [id=" + id + ", batch_id=" + batch_id + ", product_id=" + product_id + ", product_num="
-				+ product_num + "]";
+				+ product_num + ", finacialProduct=" + finacialProduct + "]";
 	}
 
 }

@@ -14,6 +14,8 @@
 	<!-- 全局参数配置 -->
 	<settings>
 		<setting name="logImpl" value="LOG4J" />
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
 	</settings>
 	
 	<!-- 别名设置 -->

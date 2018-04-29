@@ -11,6 +11,7 @@ import org.junit.Test;
 import cn.com.mybatis.datasource.DataConnection;
 import cn.com.mybatis.po.BatchCustomer;
 import cn.com.mybatis.po.BatchItem;
+import cn.com.mybatis.po.Customer;
 import cn.com.mybatis.po.User;
 
 public class MyBatisTest {
@@ -133,4 +134,36 @@ public class MyBatisTest {
 		sqlSession.close();
 	}
 	
+	@Test
+	public void testFindCustomerAndProducts() throws IOException
+	{
+		SqlSession sqlSession = dataConn.getSqlSession();
+		List<Customer> customerList = sqlSession.selectList("test.findUserAndProducts");
+		System.out.println(customerList);
+		sqlSession.close();
+	}
+	
+	@Test
+	public void testFindBatchCustomerLazyLoading() throws IOException
+	{
+		SqlSession sqlSession = dataConn.getSqlSession();
+		List<BatchItem> batchItemList = sqlSession.selectList("test.findBatchUserLazyLoading");
+//		System.out.println(batchItemList.toString());
+		BatchItem batchItem = null;
+		Customer customer = null;
+		for(int i=0;i<batchItemList.size();i++)
+		{
+			batchItem = batchItemList.get(i);
+			System.out.println("订单编号："+ batchItem.getNumber());
+			
+			// 执行getCustomer时才会去查询用户信息，这里实现了延迟加载
+			customer = batchItem.getCustomer();
+			System.out.println("订购用户姓名："+customer.getUsername());
+		}
+		sqlSession.close();
+	}
 }
+
+
+
+
