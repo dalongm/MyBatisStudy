@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+	<!-- 开启本Mapper的namespace下的二级缓存(step 2/2) -->
+	<cache/>
+	<!-- 通过ID查找用户 -->
+	<select id="findUserById" parameterType="int" resultType="User">
+		<!-- 如果输入参数是String或简单类型（基本数据类型），那么#{}中的值可以是任意数据，
+		但是推荐使用“_parameter” -->
+		SELECT * FROM USER WHERE id=#{_parameter}
+	</select>
+	
+	<!-- 通过用户名模糊查找 -->
+	<select id="findUserByUsername" parameterType="String" resultType="User">
+		<!-- ${} 表示拼接SQL串 ，且只能用value代表其中的参数 -->
+		<!-- SELECT * FROM USER WHERE username LIKE '%${value}%' -->
+		SELECT * FROM USER WHERE username LIKE #{_parameter}
+	</select>
+	
+	<!-- 插入用户 -->
+	<!-- useGeneratedKeys="true" keyProperty="id" 设置使用自增主键，keyProperty对应Java对象的属性名 -->
+	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		
+		<!-- 通过MySQL来获取刚插入记录的自增主键 -->
+		<!-- <selectKey keyProperty="id" order="AFTER" resultType="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey> -->
+		INSERT INTO user(username, password, gender, birthday, email, province, city)
+		VALUE (#{username},#{password},#{gender}, #{birthday}, #{email}, #{province}, #{city})
+	</insert>
+	
+	<!-- 删除用户 -->
+	<delete id="deleteUser" parameterType="Integer">
+		DELETE FROM user WHERE id=#{_parameter}
+	</delete>
+	
+	<!-- 修改用户 -->
+	<update id="updateUserName" parameterType="User">
+		UPDATE user
+		SET username=#{username} 
+		WHERE id=#{id}
+	</update>
+
+</mapper>
+
