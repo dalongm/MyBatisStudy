@@ -3,6 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.mybatis.mapper.CustomerMapper">
+	<!-- 开启本Mapper的namespace下的二级缓存(step 2/2) -->
+	<cache/>
+	
 	<select id="findCustomerById" parameterType="int" resultType="Customer">
 		SELECT * FROM customer WHERE cus_id=#{cus_id}
 	</select>

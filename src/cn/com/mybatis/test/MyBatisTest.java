@@ -181,6 +181,62 @@ public class MyBatisTest {
 	}
 	
 	/**
+	 * 测试Mapper动态代理
+	 * 测试二级缓存()
+	 * @throws Exception
+	 */
+	@Test
+	public void testFindCustomerOnMapper2() throws Exception
+	{
+		SqlSession sqlSession = dataConn.getSqlSession();
+		// 获取Mapper代理
+		CustomerMapper customerMapper1 = sqlSession.getMapper(CustomerMapper.class);
+		// 执行Mapper代理对象的查询方法
+		Customer customer1 = customerMapper1.findCustomerById(1);
+		System.out.println(customer1);
+		
+		// 获取Mapper代理
+		CustomerMapper customerMapper2 = sqlSession.getMapper(CustomerMapper.class);
+		// 执行Mapper代理对象的查询方法
+		Customer customer2 = customerMapper2.findCustomerById(1);
+		System.out.println(customer2);
+		
+		sqlSession.close();
+	}
+	
+	/**
+	 * 测试Mapper动态代理
+	 * 测试二级缓存清空
+	 * @throws Exception
+	 */
+	@Test
+	public void testFindCustomerOnMapper3() throws Exception
+	{
+		SqlSession sqlSession = dataConn.getSqlSession();
+		// 获取Mapper代理
+		CustomerMapper customerMapper1 = sqlSession.getMapper(CustomerMapper.class);
+		// 执行Mapper代理对象的查询方法
+		Customer customer1 = customerMapper1.findCustomerById(1);
+		System.out.println(customer1);
+		
+		// 获取Mapper代理
+		CustomerMapper customerMapper2 = sqlSession.getMapper(CustomerMapper.class);
+		// 执行Mapper代理对象的查询方法
+		String acno = "33333";
+		customer1.setAcno(acno);
+		customerMapper2.updateCustomerAcNo(customer1);
+		sqlSession.commit();
+		
+		// 获取Mapper代理
+		CustomerMapper customerMapper3 = sqlSession.getMapper(CustomerMapper.class);
+		// 执行Mapper代理对象的查询方法
+		Customer customer3 = customerMapper3.findCustomerById(1);
+		System.out.println(customer3);
+		
+		sqlSession.close();
+	}
+	
+	/**
 	 * 测试MyBatis一级缓存
 	 * @throws Exception
 	 */
@@ -188,13 +244,11 @@ public class MyBatisTest {
 	public void testFindCustomerCache1() throws Exception
 	{
 		SqlSession sqlSession = dataConn.getSqlSession();
-		// 获取Mapper代理
-		CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
-		// 执行Mapper代理对象的查询方法
-		Customer customer1 = customerMapper.findCustomerById(1);
+		Customer customer1 = sqlSession.selectOne("test.findCustomerById", 1);
 		System.out.println(customer1);
+		
 		// 无任何中间日志输出，第二次查询是从一级缓存中获取的
-		Customer customer2 = customerMapper.findCustomerById(1);
+		Customer customer2 = sqlSession.selectOne("test.findCustomerById", 1);
 		System.out.println(customer2);
 		sqlSession.close();
 	}
@@ -207,20 +261,17 @@ public class MyBatisTest {
 	public void testFindCustomerCache2() throws Exception
 	{
 		SqlSession sqlSession = dataConn.getSqlSession();
-		// 获取Mapper代理
-		CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
-		// 执行Mapper代理对象的查询方法
-		Customer customer1 = customerMapper.findCustomerById(1);
+		Customer customer1 = sqlSession.selectOne("test.findCustomerById", 1);
 		System.out.println(customer1);
 		
 		String acno= "22222";
 		customer1.setAcno(acno);
-		customerMapper.updateCustomerAcNo(customer1);
+		sqlSession.update("test.updateCustomerAcNo",customer1);
 		sqlSession.commit();
 		
 		// 在查询缓存数据之前，如果发生增删改等改变数据的操作（commit后），
 		// SqlSession会清空一级缓存
-		Customer customer2 = customerMapper.findCustomerById(1);
+		Customer customer2 = sqlSession.selectOne("test.findCustomerById", 1);
 		System.out.println(customer2);
 		sqlSession.close();
 	}

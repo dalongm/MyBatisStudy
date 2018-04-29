@@ -3,6 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test">
+	<!-- 开启本Mapper的namespace下的二级缓存(step 2/2) -->
+	<cache/>
 	<!-- 通过ID查找用户 -->
 	<select id="findUserById" parameterType="int" resultType="User">
 		<!-- 如果输入参数是String或简单类型（基本数据类型），那么#{}中的值可以是任意数据，
@@ -39,6 +41,10 @@
 		UPDATE user
 		SET username=#{username} 
 		WHERE id=#{id}
+	</update>
+	
+	<update id="updateCustomerAcNo" parameterType="Customer">
+		UPDATE customer SET acno = #{acno} WHERE cus_id = #{cus_id}
 	</update>
 	
 	<select id="findBatchCustomer" resultType="BatchCustomer">

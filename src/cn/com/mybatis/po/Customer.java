@@ -1,8 +1,15 @@
 package cn.com.mybatis.po;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Customer {
+/**
+ * 客户Bean
+ * 实现序列化操作，方便二级缓存存储在多样的存储介质当中
+ */
+public class Customer implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private int cus_id;
 	private String username;
 	private String acno;
