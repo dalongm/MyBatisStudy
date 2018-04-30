@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.com.mvc.model.Fruits;
+import cn.com.mvc.service.FruitsService;
+import cn.com.mvc.service.FruitsServiceImpl;
 
 
 /**
@@ -16,8 +18,8 @@ import cn.com.mvc.model.Fruits;
 @Controller
 public class FruitsControllerTest3 {
 
-	private FruitsService fruitsService = new FruitsService();
-	
+	private FruitsService fruitsService = new FruitsServiceImpl();
+
 	/**
 	 * 商品查询列表
 	 * @RequestMapping实现对queryFruitsList方法和url进行映射，
@@ -33,7 +35,7 @@ public class FruitsControllerTest3 {
 		// 相当于request的setAttribut，在JSP页面中通过fruitsList获取数据
 		modelAndView.addObject("fruitsList", fruitsList);
 		// 指定视图
-		modelAndView.setViewName("/WEB-INF/jsp/fruits/fruitsList.jsp");
+		modelAndView.setViewName("/fruits/fruitsList");
 		return modelAndView;
 	}
 	

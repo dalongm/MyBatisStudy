@@ -9,11 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import cn.com.mvc.model.Fruits;
+import cn.com.mvc.service.FruitsService;
+import cn.com.mvc.service.FruitsServiceImpl;
 
 
 public class FruitsControllerTest implements Controller {
 
-	private FruitsService fruitsService = new FruitsService();
+	private FruitsService fruitsService = new FruitsServiceImpl();
 	
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -25,7 +27,7 @@ public class FruitsControllerTest implements Controller {
 		// 相当于request的setAttribut，在JSP页面中通过fruitsList获取数据
 		modelAndView.addObject("fruitsList", fruitsList);
 		// 指定视图
-		modelAndView.setViewName("/WEB-INF/jsp/fruits/fruitsList.jsp");
+		modelAndView.setViewName("/fruits/fruitsList");
 		return modelAndView;
 	}
 

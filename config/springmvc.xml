@@ -24,7 +24,10 @@
 	
 	
 	<!-- 配置视图解析器 ，根据模板名称和位置解析视图 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
 	
 	<!-- 配置可以被url映射的Handler的bean -->
 	<bean name="/queryFruits_test.action" class="cn.com.mvc.controller.FruitsControllerTest"></bean>

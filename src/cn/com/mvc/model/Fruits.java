@@ -1,9 +1,18 @@
 package cn.com.mvc.model;
 
 public class Fruits {
+	private int id;
 	private String name;
 	private double price;
 	private String producing_area;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -31,7 +40,7 @@ public class Fruits {
 
 	@Override
 	public String toString() {
-		return "Fruits [name=" + name + ", price=" + price + ", producing_area=" + producing_area + "]";
+		return "Fruits [id=" + id + ", name=" + name + ", price=" + price + ", producing_area=" + producing_area + "]";
 	}
 
 }
