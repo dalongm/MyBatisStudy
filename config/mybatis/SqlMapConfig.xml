@@ -23,9 +23,8 @@
 	
 	<!-- 加载映射文件 -->
 	<mappers>
-		<!-- 一次加载一个映射文件 -->
 		<mapper resource="sqlmap/UserMapper.xml" />
-		<!-- 批量加载mapper -->
-		<package name="cn.com.sm.mapper" />
+		<mapper resource="sqlmap/UserQueryMapper.xml" />
+		<!-- 将批量加载Mapper放到applicationContext.xml中 -->
 	</mappers>
 </configuration>
