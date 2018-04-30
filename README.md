@@ -20,7 +20,7 @@
 + [x] [第7章](https://github.com/dalongm/MybatisStudy/tree/chapter7)
 + [x] [第8章](https://github.com/dalongm/MybatisStudy/tree/chapter8)
 + [x] [第9章](https://github.com/dalongm/MybatisStudy/tree/chapter9)
-+ [ ] [第10章]
++ [ ] 第10章
 + [x] [第11章](https://github.com/dalongm/MybatisStudy/tree/chapter11)
 + [ ] 第12-19章
 
