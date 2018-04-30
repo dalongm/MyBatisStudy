@@ -28,5 +28,62 @@
 		</tr>
 		</c:forEach>
 	</table>
+	<form action="fruitsArrayTest.action" method="post">
+		<table width="300px;" border=1>
+			<tr>
+				<td>名称</td>
+				<td>价格</td>
+				<td>产地</td>
+			</tr>
+			<c:forEach items="${fruitsList}" var="fruit">
+			<tr>
+				<td><input type="checkbox" name="fids" value="${fruit.id}"/></td>
+				<td>${fruit.name}</td>
+				<td>${fruit.price}</td>
+				<td>${fruit.producing_area}</td>
+			</tr>
+			</c:forEach>
+		</table>
+		<input type="submit" value="批量测试提交"/>
+	</form>
+	<form action="fruitsListTest.action" method="post">
+		<table width="300px;" border=1>
+			<tr>
+				<td>名称</td>
+				<td>价格</td>
+				<td>产地</td>
+			</tr>
+			<c:forEach items="${fruitsList}" var="fruit" varStatus="status">
+				<tr>
+					<td><input name="fruitList[${status.index}].name" value="${fruit.name}"/></td>
+					<td><input name="fruitList[${status.index}].price" value="${fruit.price}"/></td>
+					<td><input name="fruitList[${status.index}].producing_area" value="${fruit.producing_area}"/></td>
+				</tr>
+			</c:forEach>
+		</table><br/>
+		<input type="submit" value="批量测试提交"/>
+	</form>
+	<form action="fruitsMapTest.action" method="post">
+		<table width="300px;" border=1>
+			<tr>
+				<td>名称</td>
+				<td>价格</td>
+				<td>产地</td>
+			</tr>
+			<tr>
+				<td><input name="fruitMap['name']" value="黑凤梨"/></td>
+				<td><input name="fruitMap['price']" value="5.7"/></td>
+				<td><input name="fruitMap['producing_area']" value="广州"/></td>
+			</tr>
+		</table><br/>
+		<input type="submit" value="批量测试提交"/>
+	</form>
 </body>
 </html>
+
+
+
+
+
+
+
