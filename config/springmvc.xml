@@ -19,12 +19,33 @@
     <!-- 配置处理器映射器 -->
 	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 	
-	<!-- 配置处理器映射器 -->
+	<!-- 配置处理器适配器 -->
 	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+	
 	
 	<!-- 配置视图解析器 ，根据模板名称和位置解析视图 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
 	
 	<!-- 配置可以被url映射的Handler的bean -->
 	<bean name="/queryFruits_test.action" class="cn.com.mvc.controller.FruitsControllerTest"></bean>
+	
+	<!-- 配置注解映射器和适配器 -->
+	<!-- 方法一 -->
+	<!-- 注解映射器 -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
+	<!-- 注解适配器 -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
+	
+	<!-- 方法二 -->
+	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	<!-- 让注解的处理器映射器和适配器找到注解的Handler -->
+	<!-- 方法一 -->
+	<!-- <bean class="cn.com.mvc.controller.FruitsControllerTest3"></bean> -->
+	
+	<!-- 方法二 -->
+	<context:component-scan base-package="cn.com.mvc.controller"></context:component-scan>
 </beans>
+
+
+
