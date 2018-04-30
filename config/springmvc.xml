@@ -15,5 +15,16 @@
        http://www.springframework.org/schema/tx/spring-aop.xsd  
        http://www.springframework.org/schema/mvc 
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       
+    <!-- 配置处理器映射器 -->
 	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	
+	<!-- 配置处理器映射器 -->
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+	
+	<!-- 配置视图解析器 ，根据模板名称和位置解析视图 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+	
+	<!-- 配置可以被url映射的Handler的bean -->
+	<bean name="/queryFruits_test.action" class="cn.com.mvc.controller.FruitsControllerTest"></bean>
 </beans>
