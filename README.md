@@ -13,7 +13,7 @@
 ## 包含章节
 
 + [ ] 第1-2章
-+ [ ] [第3章](https://github.com/dalongm/MybatisStudy/tree/master)
++ [x] [第3章](https://github.com/dalongm/MybatisStudy/tree/master)
 + [x] [第4章](https://github.com/dalongm/MybatisStudy/tree/chapter4)
 + [x] [第5章](https://github.com/dalongm/MybatisStudy/tree/chapter5)
 + [x] [第6章](https://github.com/dalongm/MybatisStudy/tree/chapter6)
