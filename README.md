@@ -10,4 +10,16 @@
 + JDK 1.8
 + Tomcat 8.0
 
+## 包含章节
+
++ [ ] 第1-2章
++ [ ] [第3章](https://github.com/dalongm/MybatisStudy/tree/master)
++ [x] [第4章](https://github.com/dalongm/MybatisStudy/tree/chapter4)
++ [x] [第5章](https://github.com/dalongm/MybatisStudy/tree/chapter5)
++ [x] [第6章](https://github.com/dalongm/MybatisStudy/tree/chapter6)
++ [x] [第7章](https://github.com/dalongm/MybatisStudy/tree/chapter7)
++ [x] [第8章](https://github.com/dalongm/MybatisStudy/tree/chapter8)
++ [x] [第9章](https://github.com/dalongm/MybatisStudy/tree/chapter9)
++ [ ] 第10-19章
+
 侵删

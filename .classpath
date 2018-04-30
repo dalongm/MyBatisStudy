@@ -33,8 +33,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-instrument-4.3.14.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet-api-3.1.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet-api-3.1.0-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cglib-2.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-1.2.jar" sourcepath="WebContent/WEB-INF/lib/jstl-1.2-sources.jar"/>
