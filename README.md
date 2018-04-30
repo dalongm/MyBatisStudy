@@ -4,13 +4,13 @@
 
 ## Spring MVC技术入门
 
-运行环境
+### 运行环境
 
 + Eclipse Oxygen
 + JDK 1.8
 + Tomcat 8.0
 
-## 包含章节
+### 包含章节
 
 + [ ] 第1-2章
 + [x] [第3章](https://github.com/dalongm/MybatisStudy/tree/master)
