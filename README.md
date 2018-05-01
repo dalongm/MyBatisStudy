@@ -4,11 +4,18 @@
 
 ## Spring MVC技术入门
 
+### 数据库设置
+
+使用Mysql数据库，在src/main/resources/db.properties中配置数据库连接，账户及密码。
+数据表及数据在sql/fruit_manage.sql中。
+
 ### 运行环境
 
 + Eclipse Oxygen
 + JDK 1.8
 + Tomcat 8.0
++ Mysql 5.7
++ Maven 3.5.3
 
 ### 包含章节
 
