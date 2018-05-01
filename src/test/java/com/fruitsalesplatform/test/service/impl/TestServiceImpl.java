@@ -20,7 +20,14 @@ public class TestServiceImpl implements TestService {
 	
 	@Override
 	public List<User> findUserByName(User user) {
-		return testDao.findUserByName(user);
+		if(user.getName()==null||user.getName().equals(""))
+		{
+			return testDao.findAllUser();
+		}
+		else
+		{
+			return testDao.findUserByName(user);
+		}
 	}
 
 	@Override
