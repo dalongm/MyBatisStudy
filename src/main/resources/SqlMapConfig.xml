@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 配置时必须按照规定的顺序 （可省略部分配置）-->
+
+	<!-- 全局参数配置 -->
+	<!-- <settings>
+		<setting name="logImpl" value="LOG4J" />
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
+		开启二级缓存（step 1/2）
+		<setting name="cacheEnabled" value="true"/>
+	</settings> -->
+	
+	<!-- 别名设置 -->
+	<!-- 扫描包下面的JavaBean，批量定义别名，方便Mapper中的使用 -->
+	<typeAliases>
+		<package name="com.fruitsalesplatform.entity"/>
+	</typeAliases>
+	
+	
+	
+</configuration>
