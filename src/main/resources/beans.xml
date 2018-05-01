@@ -19,7 +19,7 @@
 	<context:property-placeholder location="classpath:db.properties"/>
 	
 	<!-- 2.包扫描：dao,service -->
-	<context:component-scan base-package="com.fruitsalesplatform.dao, com.fruitsalesplatform.service, com.fruitsalesplatform.test.dao, com.fruitsalesplatform.test.service"/>
+	<context:component-scan base-package="com.fruitsalesplatform.dao, com.fruitsalesplatform.service"/>
 	
 	<!-- 3.数据源 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -38,7 +38,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 加载MyBatis的配置文件 -->
 		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
-		<property name="mapperLocations" value="classpath:com/fruitsalesplatform/*/mapper/*.xml" />
+		<property name="mapperLocations" value="classpath:com/fruitsalesplatform/mapper/*.xml" />
 		<!-- 数据源 -->
 		<property name="dataSource" ref="dataSource" />
 	</bean>
