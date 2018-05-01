@@ -30,8 +30,8 @@
 	</bean>
 	
 	<!-- 配置可以被url映射的Handler的bean -->
-	<bean name="/queryFruits_test.action" class="cn.com.mvc.controller.FruitsControllerTest"></bean>
-	
+	<!-- <bean name="/queryFruits_test.action" class="cn.com.mvc.controller.FruitsControllerTest"></bean>
+	 -->
 	<!-- 配置注解映射器和适配器 -->
 	<!-- 方法一 -->
 	<!-- 注解映射器 -->
@@ -40,7 +40,31 @@
 	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
 	
 	<!-- 方法二 -->
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven conversion-service="conversionService" validator="validator"></mvc:annotation-driven>
+	
+	<!-- 校验器 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"></property>
+		<property name="validationMessageSource" ref="messageSource"></property>
+	</bean>
+	
+	<!-- 校验错误信息配置文件 -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:ProductValidationMessages</value>
+			</list>		
+		</property>
+		<!-- 设置默认编码格式，与properties文件格式一致 -->
+		<property name="defaultEncoding" value="utf-8" />  
+		<property name="fileEncodings" value="utf-8"/>
+		<property name="cacheSeconds" value="120"/>
+	</bean>
+	
+	<!-- 配置一个可以将字符串转化为Date类型或数字类型的Java类 
+		<mvc:annotation-driven/>默认启用
+		-->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"/>
 	
 	<!-- 让注解的处理器映射器和适配器找到注解的Handler -->
 	<!-- 方法一 -->

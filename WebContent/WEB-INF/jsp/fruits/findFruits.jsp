@@ -10,7 +10,13 @@
 <body>
 	<form action="queryFruitsByCondition.action" method="post">
 		名称：<input type="text" name="name"/>&nbsp;&nbsp;
-		产地：<input type="text" name="producing_area"/>
+		产地：<input type="text" name="producing_area"/><br/>
+		<!-- 显示错误信息 -->
+		<c:if test="${allErrors!=null}">
+			<c:forEach items="${allErrors}" var="error">
+				<font color="red">${error.defaultMessage}</font><br/>
+			</c:forEach>
+		</c:if>
 		<input type="submit" value="搜索"/>
 	</form>
 	<h3>搜索结果</h3>

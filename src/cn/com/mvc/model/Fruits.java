@@ -1,9 +1,18 @@
 package cn.com.mvc.model;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import cn.com.mvc.validator.group.FruitsGroup1;
+import cn.com.mvc.validator.group.FruitsGroup2;
+
 public class Fruits {
 	private int id;
+	@Size(min=1,max=20,message="{fruits.name.length.error}",groups=FruitsGroup1.class)
 	private String name;
 	private double price;
+	@NotEmpty(message="{fruits.producing_area.isEmpty}",groups=FruitsGroup2.class)
 	private String producing_area;
 
 	public int getId() {
