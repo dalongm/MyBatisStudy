@@ -1,5 +1,10 @@
 package com.fruitsalesplatform.test.service;
 
-public class TestService {
+import java.util.List;
 
+import com.fruitsalesplatform.test.entity.User;
+
+public interface TestService {
+	public List<User> findUserByName(User user);
+	public List<User> findAllUser();
 }

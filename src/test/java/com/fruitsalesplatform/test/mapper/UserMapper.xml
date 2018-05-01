@@ -6,4 +6,8 @@
 	<select id="findUserByName" parameterType="String" resultType="com.fruitsalesplatform.test.entity.User">
 		SELECT * FROM user WHERE name LIKE #{name}
 	</select>
+	
+	<select id="findAllUser" resultType="com.fruitsalesplatform.test.entity.User">
+		SELECT * FROM user
+	</select>
 </mapper>

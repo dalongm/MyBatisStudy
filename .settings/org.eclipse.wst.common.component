@@ -5,7 +5,7 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
-        <property name="context-root" value="Fruit-Sales_Platform"/>
         <property name="java-output-path" value="/Fruit-Sales_Platform/target/classes"/>
+        <property name="context-root" value="Fruit-Sales-Platform"/>
     </wb-module>
 </project-modules>

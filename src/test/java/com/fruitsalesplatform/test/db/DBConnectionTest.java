@@ -25,7 +25,7 @@ public class DBConnectionTest {
 		// 获取Spring类加载配置对象
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(resource);
 		// 从配置对象中创建会话工厂，并注入MyBatis配置文件的信息
-		sqlSessionFactory = (SqlSessionFactory) context.getBean("sessionFactory");
+		sqlSessionFactory = (SqlSessionFactory) context.getBean("sqlSessionFactory");
 		context.close();
 		sqlSession = sqlSessionFactory.openSession();
 		return sqlSession;
