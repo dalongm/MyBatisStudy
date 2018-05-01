@@ -33,11 +33,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-instrument-4.3.14.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cglib-2.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-1.2.jar" sourcepath="WebContent/WEB-INF/lib/jstl-1.2-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hibernate-validator-4.3.2.Final.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jboss-logging-3.3.1.Final.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
