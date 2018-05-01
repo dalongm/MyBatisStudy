@@ -22,6 +22,7 @@
 + [x] [第9章](https://github.com/dalongm/MybatisStudy/tree/chapter9)
 + [ ] 第10章
 + [x] [第11章](https://github.com/dalongm/MybatisStudy/tree/chapter11)
-+ [ ] 第12-19章
++ [x] [第12章](https://github.com/dalongm/MybatisStudy/tree/chapter12)
++ [ ] 第13-19章
 
 侵删
