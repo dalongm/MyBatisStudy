@@ -33,6 +33,7 @@
 + [ ] 第13-15章
 + [x] [第16章](https://github.com/dalongm/MybatisStudy/tree/chapter16)
 + [x] [第17章](https://github.com/dalongm/MybatisStudy/tree/chapter17)
-+ [ ] 第18-19章
++ [x] [第18章](https://github.com/dalongm/MybatisStudy/tree/chapter18)
++ [ ] 第19章
 
 侵删
