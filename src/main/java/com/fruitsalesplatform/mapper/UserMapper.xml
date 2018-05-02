@@ -63,7 +63,7 @@
 	<!-- 删除多条 -->
 	<delete id="delete" parameterType="string">
 		DELETE FROM user
-		WHERE userid id
+		WHERE userid IN
 		<foreach collection="array" item="userid" open="(" close=")" separator=",">
 			#{userid}
 		</foreach>

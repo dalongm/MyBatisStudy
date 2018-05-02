@@ -7,8 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>主页</title>
+<style>*{margin: 0;padding: 0;} #menuContent a{text-decoration: none; color:#ffffff;}</style>
 </head>
 <body>
+	<%@ include file="menu.jsp" %>
 	<h3>欢迎您，${user.name}</h3>
 	<%-- <%
 	if(session.getAttribute("user") != null)
