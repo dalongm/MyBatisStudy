@@ -36,6 +36,7 @@
 		VALUES
 		(
 			#{userid,jdbcType=VARCHAR},
+			#{username,jdbcType=VARCHAR},
 			#{password,jdbcType=VARCHAR},
 			#{name,jdbcType=VARCHAR},
 			#{telephone,jdbcType=VARCHAR}
