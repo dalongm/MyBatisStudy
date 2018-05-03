@@ -105,8 +105,4 @@ public class RetailerController extends BaseController {
 		map.put("pageSize", retailer.getPageSize());
 		return map;
 	}
-
-	private Object chectStringIsEempty(String param) {
-		return param==null?null:(param.equals("")?null:"%"+param+"%");
-	}
 }

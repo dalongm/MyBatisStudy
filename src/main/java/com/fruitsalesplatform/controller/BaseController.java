@@ -15,4 +15,8 @@ public abstract class BaseController {
 		dateFormat.setLenient(true);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
+	
+	public Object chectStringIsEempty(String param) {
+		return param==null?null:(param.equals("")?null:"%"+param+"%");
+	}
 }
