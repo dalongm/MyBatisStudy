@@ -1,8 +1,11 @@
 package com.fruitsalesplatform.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -75,6 +78,18 @@ public class RetailerController extends BaseController {
 		queryRetailer.setStartPage(retailer.getStartPage());
 		queryRetailer.setCurrentPage(retailer.getCurrentPage());
 		queryRetailer.setPageSize(retailer.getPageSize());
+		queryRetailer.setStatus(-1);
+		return list(model, queryRetailer, null, null);
+	}
+	
+	@RequestMapping("/retailer/add.action")
+	public String add(Model model, Retailer retailer)
+	{
+		retailer.setRetailerId(UUID.randomUUID().toString());
+		retailer.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		retailerService.insert(retailer);
+		// 构建新的列表查询条件，只要status状态即可
+		Retailer queryRetailer = new Retailer();
 		queryRetailer.setStatus(-1);
 		return list(model, queryRetailer, null, null);
 	}

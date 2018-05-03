@@ -26,7 +26,7 @@
 		background:#fff;
 		margin:10% auto;
 	}
-	.mask{
+	.mask, .addMask{
 		width:100%;
 		height:100%;
 		position:absolute;
@@ -146,6 +146,41 @@
 		$("#dPageSize").val($("#pageSize").val());
 		$("#deleteForm").submit(); // 提交表单
 	}
+	
+	function showAddMask(flag){
+		if(flag=="true"){
+			$(".addMask").css("display","block");
+		}else{
+			$(".addMask").css("display","none");
+		}
+	}
+	
+	function checkAddRetailer(){
+		if($("#addName").val()==null||$("#addName").val()==""){
+			alert("用户名不能为空!")
+			return false;
+		}
+		
+		if($("#addTelephone").val()==null||$("#addTelephone").val()==""){
+			alert("手机号不能为空!")
+			return false;
+		}
+		
+		// var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+		var myreg = /^1[34578]\d{9}$/;
+		
+		if(!myreg.test($("#addTelephone").val())){
+			alert("请输入有效得手机号码！");
+			return false;
+		}
+		
+		if($("#addAddress").val()==null||$("#address").val()==""){
+			alert("地址不能为空!")
+			return false;
+		}
+		
+		return true;
+	}
 </script>
 </head>
 <body onload="init()">
@@ -175,10 +210,24 @@
 		<input type="hidden" name="countNumber"	id="countNumber" value="${countNumber}" />
 		
 	</form>
+	<div class="addMask">
+		<div class="c">
+			<div style="background-color:#173e65;height: 20px;color:#fff;font-size: 12px;padding-left:7px;">
+				添加信息<font style="float:right;padding-right:10px;" onclick="showAddMask('false')">x</font>
+			</div>
+			<form id="addForm" action="add.action" method="post" onsubmit="checkAddRetailer()">
+				姓名：<input type="text" id="addName" name="name" style="width:120px;"/><br/>
+				手机：<input type="text" id="addTelephone" name="telephone" style="width:120px;"/><br/>
+				地址：<input type="text" id="addAddress" name="address" style="width:120px;"/><br/>
+				<input type="hidden" name="status" value="1"/>
+				<input type="submit" value="添加" style="background-color: #173e65;color:#ffffff;width:70px;"/>
+			</form>
+		</div>
+	</div>
 	<div class="mask">
 		<div class="c">
 			<div style="background-color:#173e65;height: 20px;color:#fff;font-size: 12px;padding-left:7px;">
-				修改信息<div style="fload:right;padding-right:10px;" onclick="cancelEdit()">x</div>
+				修改信息<font style="float:right;padding-right:10px;" onclick="cancelEdit()">x</font>
 			</div>
 			<form id="editForm" action="edit.action" method="post">
 				姓名：<input type="text" id="editName" name="name" style="width:120px;"/><br/>
@@ -198,6 +247,7 @@
 		</div>
 	</div>
 	<hr style="margin-top: 10px;" />
+	<button onclick="showAddMask('true')" style="background-color:#173e65;color:#ffffff;width:70px;">添加</button>
 	<c:if test="${list!=null}">
 		<table style="margin-top: 10px; width: 700px; text-align: center;"
 			border=1>
