@@ -7,33 +7,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>零售商管理</title>
 <style type="text/css">
-	* {
-		margin: 0;
-		padding: 0;
-	}
-	
-	#menuContent a {
-		text-decoration: none;
-		color: #ffffff;
-	}
-	.c{
-		border-style: solid;
-		width:200px;
-		height:130px;
-		margin:4 23 0 23;
-		border-radius:5;
-		display:block;
-		background:#fff;
-		margin:10% auto;
-	}
-	.mask{
-		width:100%;
-		height:100%;
-		position:absolute;
-		background:rgba(0,0,0,.3);
-		display:none;
-	}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#menuContent a {
+	text-decoration: none;
+	color: #ffffff;
+}
 </style>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.3.1.js"></script> --%>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 <script type="text/javascript">
 	function changeStatus() {
@@ -106,7 +90,7 @@
 		}
 		
 	}
-	function editRetailer(id){
+	function editRetailer(){
 		var message="{'id':'"+id+"'}";
 		$.ajax({
 			type:'post',
@@ -115,7 +99,7 @@
 			data:message, // 数据格式是json
 			success:function(data){
 				$("#editName").val(data["name"]);
-				$("#editTelephone").val(data["telephone"]);
+				$("#editTelphone").val(data["telephone"]);
 				$("#editAddress").val(data["address"]);
 				$("#retailerId").val(data["retailerId"]);
 				$("#editStatus").val(data["status"]);
@@ -127,15 +111,6 @@
 				$("#ePageSize").val($("#pageSize").val());
 			}
 		})
-	}
-	
-	function cancelEdit(){
-		$(".mask").css("display","none");
-	}
-	
-	function changeEditStatus() {
-		var status = document.getElementById("eStatus").value;
-		document.getElementById("editStatus").value = status;
 	}
 </script>
 </head>
@@ -164,30 +139,7 @@
 		<input type="hidden" name="pageSize" id="pageSize" value="${pageSize}" /> 
 		<input type="hidden" name="sumPageNumber" id="sumPageNumber" value="${sumPageNumber}" /> 
 		<input type="hidden" name="countNumber"	id="countNumber" value="${countNumber}" />
-		
 	</form>
-	<div class="mask">
-		<div class="c">
-			<div style="background-color:#173e65;height: 20px;color:#fff;font-size: 12px;padding-left:7px;">
-				修改信息<div style="fload:right;padding-right:10px;" onclick="cancelEdit()">x</div>
-			</div>
-			<form id="editForm" action="edit.action" method="post">
-				姓名：<input type="text" id="editName" name="name" style="width:120px;"/><br/>
-				手机：<input type="text" id="editTelephone" name="telephone" style="width:120px;"/><br/>
-				地址：<input type="text" id="editAddress" name="address" style="width:120px;"/><br/>
-				状态：<select id="eStatus" onchange="changeEditStatus()">
-					<option value="1">启用</option>
-					<option value="0">停用</option>
-				</select><br/>
-				<input type="hidden" name="retailerId" id="retailerId"/>
-				<input type="hidden" name="status" id="editStatus"/>
-				<input type="hidden" name="startPage" id="eStartPage"/>
-				<input type="hidden" name="currentPage" id="eCurrentPage"/>
-				<input type="hidden" name="pageSize" id="ePageSize"/>
-				<input type="submit" value="提交" style="background-color: #173e65;color:#ffffff;width:70px;"/>
-			</form>
-		</div>
-	</div>
 	<hr style="margin-top: 10px;" />
 	<c:if test="${list!=null}">
 		<table style="margin-top: 10px; width: 700px; text-align: center;"

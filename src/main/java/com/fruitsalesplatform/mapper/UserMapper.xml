@@ -48,8 +48,8 @@
 		UPDATE user
 		<set>
 			<if test="password!=null">password=#{password,jdbcType=VARCHAR},</if>
-			<if test="name!=null">#{name,jdbcType=VARCHAR},</if>
-			<if test="telephone!=null">#{telephone,jdbcType=VARCHAR}</if>
+			<if test="name!=null">name=#{name,jdbcType=VARCHAR},</if>
+			<if test="telephone!=null">telephone=#{telephone,jdbcType=VARCHAR},</if>
 		</set>
 		WHERE userid=#{userid}
 	</update>

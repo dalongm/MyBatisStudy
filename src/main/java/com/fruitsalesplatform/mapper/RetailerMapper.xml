@@ -76,11 +76,11 @@
 	<update id="update" parameterType="com.fruitsalesplatform.entity.Retailer">
 		UPDATE retailer
 		<set>
-			<if test="address">address=#{address,jdbcType=VARCHAR},</if>
-			<if test="name!=null">#{name,jdbcType=VARCHAR},</if>
-			<if test="telephone!=null">#{telephone,jdbcType=VARCHAR}</if>
-			<if test="status!=null">#{status,jdbcType=INTEGER}</if>
-			<if test="createTime!=null">#{createTime,jdbcType=TIMESTAMP}</if>
+			<if test="address!=null">address=#{address,jdbcType=VARCHAR},</if>
+			<if test="name!=null">name=#{name,jdbcType=VARCHAR},</if>
+			<if test="telephone!=null">telephone=#{telephone,jdbcType=VARCHAR},</if>
+			<if test="status!=null">status=#{status,jdbcType=INTEGER},</if>
+			<if test="createTime!=null">createTime=#{createTime,jdbcType=TIMESTAMP},</if>
 		</set>
 		WHERE retailerid=#{retailerId}
 	</update>

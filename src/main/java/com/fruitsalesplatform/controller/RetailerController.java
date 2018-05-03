@@ -8,8 +8,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fruitsalesplatform.entity.Retailer;
 import com.fruitsalesplatform.service.RetailerService;
 
@@ -43,6 +46,26 @@ public class RetailerController extends BaseController {
 		return "/retailer/retailerHome.jsp";
 	}
 
+	@RequestMapping("/retailer/editRetailer.action")
+	public @ResponseBody Retailer editRetailer(@RequestBody String json)
+	{
+		String id = JSONObject.parseObject(json).getString("id");
+		return retailerService.get(id);
+	}
+	
+	@RequestMapping("/retailer/edit.action")
+	public String edit(Model model, Retailer retailer)
+	{
+		retailerService.update(retailer);
+		// 构建新的列表查询条件，只需要分页数据即可
+		Retailer queryRetailer = new Retailer();
+		queryRetailer.setStartPage(retailer.getStartPage());
+		queryRetailer.setCurrentPage(retailer.getCurrentPage());
+		queryRetailer.setPageSize(retailer.getPageSize());
+		queryRetailer.setStatus(-1);
+		return list(model, queryRetailer, null, null);
+	}
+	
 	private Map<String, Object> retailerToMap(Retailer retailer) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", chectStringIsEempty(retailer.getName()));
@@ -58,5 +81,4 @@ public class RetailerController extends BaseController {
 	private Object chectStringIsEempty(String param) {
 		return param==null?null:(param.equals("")?null:"%"+param+"%");
 	}
-	
 }
