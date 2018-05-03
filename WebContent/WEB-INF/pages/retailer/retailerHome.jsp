@@ -137,6 +137,15 @@
 		var status = document.getElementById("eStatus").value;
 		document.getElementById("editStatus").value = status;
 	}
+	
+	function deleteRetailer(id){
+		$("#dRetailerId").val(id); // 向form中引入id
+		// 将分页信息引入
+		$("#dStartPage").val($("#startPage").val());
+		$("#dCurrentPage").val($("#currentPage").val());
+		$("#dPageSize").val($("#pageSize").val());
+		$("#deleteForm").submit(); // 提交表单
+	}
 </script>
 </head>
 <body onload="init()">
@@ -215,7 +224,13 @@
 					<td>${item.createTime}</td>
 					<td>
 						<a onclick="editRetailer('${item.retailerId}')">编辑</a>
-						<a>删除</a>
+						<a onclick="deleteRetailer('${item.retailerId}')">删除</a>
+						<form id="deleteForm" action="delete.action" method="post">
+							<input type="hidden" name="retailerId" id="dRetailerId"/>
+							<input type="hidden" name="startPage" id="dStartPage"/>
+							<input type="hidden" name="currentPage" id="dCurrentPage"/>
+							<input type="hidden" name="pageSize" id="dPageSize"/>
+						</form>
 					</td>
 				</tr>
 			</c:forEach>

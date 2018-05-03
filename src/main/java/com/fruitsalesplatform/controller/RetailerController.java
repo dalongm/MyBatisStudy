@@ -66,6 +66,19 @@ public class RetailerController extends BaseController {
 		return list(model, queryRetailer, null, null);
 	}
 	
+	@RequestMapping("/retailer/delete.action")
+	public String delete(Model model, Retailer retailer)
+	{
+		retailerService.deleteById(retailer.getRetailerId());
+		// 构建新的列表查询条件，只需要分页数据即可
+		Retailer queryRetailer = new Retailer();
+		queryRetailer.setStartPage(retailer.getStartPage());
+		queryRetailer.setCurrentPage(retailer.getCurrentPage());
+		queryRetailer.setPageSize(retailer.getPageSize());
+		queryRetailer.setStatus(-1);
+		return list(model, queryRetailer, null, null);
+	}
+	
 	private Map<String, Object> retailerToMap(Retailer retailer) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", chectStringIsEempty(retailer.getName()));
