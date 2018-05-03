@@ -36,4 +36,8 @@
 + [x] [第18章](https://github.com/dalongm/MybatisStudy/tree/chapter18)
 + [ ] 第19章
 
+### 已知bug
+
++ 添加附属品时，刷新表单重复提交
+
 侵删
