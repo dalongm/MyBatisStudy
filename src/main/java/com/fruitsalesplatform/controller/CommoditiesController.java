@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fruitsalesplatform.entity.Commodities;
+import com.fruitsalesplatform.service.AccessoryService;
 import com.fruitsalesplatform.service.CommoditiesService;
 
 @Controller
@@ -26,6 +29,10 @@ public class CommoditiesController extends BaseController {
 	@Resource
 	CommoditiesService commoditiesService;
 	
+	@Resource
+	AccessoryService accessroyService;
+	
+	Log log = LogFactory.getLog(this.getClass());
 	
 	@RequestMapping("/commodities/list.action")
 	public String list(Model model, Commodities commodities, 
@@ -96,6 +103,10 @@ public class CommoditiesController extends BaseController {
 	@RequestMapping("/commodities/delete.action")
 	public String delete(Model model, Commodities commodities) {
 		commoditiesService.deleteById(commodities.getFruitId());
+		
+		// 删除货物下对应得所有附属品
+		int result = accessroyService.deleteByFruitId(commodities.getFruitId());
+		log.info("delete fruitId="+commodities.getFruitId()+"'s accessorys number:"+result);
 		Commodities queryCommodities = new Commodities();
 		queryCommodities.setStartPage(commodities.getStartPage());
 		queryCommodities.setCurrentPage(commodities.getCurrentPage());

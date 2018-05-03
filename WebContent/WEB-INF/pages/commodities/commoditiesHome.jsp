@@ -145,6 +145,11 @@
 		}
 	}
 	
+	function openwin(id){
+		var url="${pageContext.request.contextPath}/accessory/list.action?fruitId="+id;
+		window.open(url, "附属品","height=400,width=700,scrollbars=yes");
+	}
+	
 </script>
 </head>
 <body onload="init()">
@@ -225,14 +230,15 @@
 					<td>${item.locality}</td>
 					<td>${item.createTime}</td>
 					<td>
-						<a onclick="editCommodities('${item.fruitId}')">编辑</a>
-						<a onclick="deleteCommodities('${item.fruitId}')">删除</a>
+						<a onclick="editCommodities('${item.fruitId}')">编辑</a>|
+						<a onclick="deleteCommodities('${item.fruitId}')">删除</a>|
 						<form id="deleteForm" action="delete.action" method="post">
 							<input type="hidden" name="fruitId" id="dFruitId"/>
 							<input type="hidden" name="startPage" id="dStartPage"/>
 							<input type="hidden" name="currentPage" id="dCurrentPage"/>
 							<input type="hidden" name="pageSize" id="dPageSize"/>
 						</form>
+						<a onclick="openwin('${item.fruitId}')">附属品</a>
 					</td>
 				</tr>
 			</c:forEach>
