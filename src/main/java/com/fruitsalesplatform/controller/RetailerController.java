@@ -31,6 +31,14 @@ public class RetailerController extends BaseController {
 		}
 		List<Retailer> retailerList = retailerService.find(map);
 		model.addAttribute("list", retailerList);
+		model.addAttribute("currentPage", retailer.getCurrentPage());
+		model.addAttribute("startPage", retailer.getStartPage());
+		int countNumber = retailerService.count(map);
+		model.addAttribute("countNumber", countNumber);
+		int pageSize = retailer.getPageSize();
+		model.addAttribute("pageSize", pageSize);
+		int sumPageNumber = countNumber%pageSize==0?(countNumber/pageSize):((countNumber/pageSize)+1);;
+		model.addAttribute("sumPageNumber", sumPageNumber);
 		// 转向首页
 		return "/retailer/retailerHome.jsp";
 	}
