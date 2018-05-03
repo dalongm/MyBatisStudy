@@ -35,6 +35,7 @@
 </style>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 <script type="text/javascript">
+
 	function showAddAccessory(flag){
 		if(flag=="true"){
 			$(".addAccessoryMask").css("display","block");
@@ -61,6 +62,10 @@
 				myArray[len++] = arrays[i].value;
 			}
 		}
+		if(len==0){
+			alert("请选择附属品！");
+			return;
+		}
 		
 		$.ajax({
 			type:'post',
@@ -75,6 +80,23 @@
 		});
 	}
 	
+	function submitform(id){
+		$.ajax({  
+            type: "POST",   //提交的方法
+            url:"add.action", //提交的地址  
+            data:$('#addAccessoryForm').serialize(),// 序列化表单值  
+            async: false,  
+            error: function(request) {  //失败的话
+                 alert("Connection error");  
+            },  
+            success: function(data) {  //成功
+                 //alert(data);  //就将返回的数据显示出来
+                 //var url="${pageContext.request.contextPath}/accessory/list.action?fruitId="+id;
+                 window.location.href="list.action?fruitId="+id; 
+            }  
+         });
+	}
+	
 </script>
 </head>
 <body>
@@ -84,6 +106,21 @@
 	<button onclick="deleteAccessory()" style="background-color: #173e65;color:#ffffff;width:70px">
 		删除
 	</button>
+	<div class="addAccessoryMask">
+		<div class="c">
+			<div style="background-color:#173e65;height: 20px;color:#fff;font-size: 12px;padding-left:7px;">
+				添加附属品信息
+				<font style="float:right;padding-right:10px;" onclick="showAddAccessory('false')">x</font>
+			</div>
+			<!-- <form id="addAccessoryForm" action="add.action" method="post"> -->
+			<form id="addAccessoryForm">
+				名称：<input type="text" id="addAccessoryName" name="name" style="width:120px"/><br/>
+				价格：<input type="number" min="0.0" step="0.01" id="addAccessoryPrice" name="price" style="width:120px"/><br/>
+				<input type="hidden" id="aFruitId" name="fruitId" value="${fruitId}"/>
+				<input type="button" value="添加" onclick="submitform('${fruitId}')" style="background-color:#173e65;color:#ffffff;width:70px;"/>
+			</form>
+		</div>
+	</div>
 	<c:if test="${list!=null}">
 		<table style="margin-top:10px;width:400px;text-align: center;" border=1>
 			<tr>
@@ -102,20 +139,7 @@
 			</c:forEach>
 		</table>
 	</c:if>
-	<div class="addAccessoryMask">
-		<div class="c">
-			<div style="background-color:#173e65;height: 20px;color:#fff;font-size: 12px;padding-left:7px;">
-				添加附属品信息
-				<font style="float:right;padding-right:10px;" onclick="showAddAccessory('false')">x</font>
-			</div>
-			<form id="addAccessoryForm" action="add.action" method="post" onsubmit="checkAddAccessory()">
-				名称：<input type="text" id="addAccessoryName" name="name" style="width:120px"/><br/>
-				价格：<input type="number" min="0.0" step="0.01" id="addAccessoryPrice" name="price" style="width:120px"/><br/>
-				<input type="hidden" id="aFruitId" name="fruitId" value="${fruitId}"/>
-				<input type="submit" value="添加" style="background-color:#173e65;color:#ffffff;width:70px;"/>
-			</form>
-		</div>
-	</div>
+	
 </body>
 </html>
 
