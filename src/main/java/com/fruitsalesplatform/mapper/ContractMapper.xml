@@ -9,7 +9,7 @@
 		<id property="contractId" column="contractid" jdbcType="VARCHAR"/>
 		<result property="barCode" column="barCode" jdbcType="VARCHAR"/>
 		<result property="type" column="type" jdbcType="INTEGER"/>
-		<result property="retailerName" column="retailer_name" jdbcType="INTEGER"/>
+		<result property="retailerName" column="retailer_name" jdbcType="VARCHAR"/>
 		<result property="createTime" column="createtime"/>
 	</resultMap>
 		
@@ -74,7 +74,7 @@
 			<result property="name" column="fruit_name" jdbcType="VARCHAR"/>
 			<result property="price" column="price" jdbcType="DOUBLE"/>
 			<result property="locality" column="locality" jdbcType="VARCHAR"/>
-			<result property="number" column="number" jdbcType="VARCHAR"/>
+			<result property="number" column="number" jdbcType="DOUBLE"/>
 			<collection property="accessoryList" ofType="com.fruitsalesplatform.entity.Accessory">
 				<result property="name" column="accessory_name" jdbcType="VARCHAR"/>
 				<result property="price" column="accessory_price" jdbcType="DOUBLE"/>
@@ -124,7 +124,7 @@
 			#{middleId,jdbcType=VARCHAR},
 			#{contractId,jdbcType=VARCHAR},
 			#{fruitId,jdbcType=VARCHAR},
-			#{number,jdbcType=VARCHAR},
+			#{number,jdbcType=DOUBLE}
 		)
 	</insert>
 	

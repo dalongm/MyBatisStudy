@@ -172,9 +172,40 @@
          });
 	}
 	
+	function getContractDetail(id){
+		var url = "${pageContext.request.contextPath}/contract/getContractDetail.action?contractId="+id;
+		window.open(url,"合同详情","height=700,width=700,scrollbars=yes");
+	}
+	
+	function deleteContract(contractId, barCode){
+		if(window.confirm("你确定要删除编号为"+barCode+"的合同信息吗？")){
+			$("#dContractId").val(contractId);
+			$("#dStartPage").val($("#startPage").val());
+			$("#dCurrentPage").val($("#currentPage").val());
+			$("#dPageSize").val($("#pageSize").val());
+			// $("#deleteForm").submit(); // 提交表单
+			// window.location.href="list.action?type=-1"; 
+			// 使用ajax提交表单，防止刷新重复提交
+			$.ajax({  
+	            type: "POST",   //提交的方法
+	            url:"delete.action", //提交的地址  
+	            data:$('#deleteForm').serialize(),// 序列化表单值  
+	            async: false,  
+	            error: function(request) {  //失败的话
+	                 alert("Connection error");  
+	            },  
+	            success: function(data) {  //成功
+	                 //alert(data);  //就将返回的数据显示出来
+	                 //var url="${pageContext.request.contextPath}/accessory/list.action?fruitId="+id;
+	                 window.location.href="list.action?type=-1"; 
+	            }  
+	         }); 
+		}
+	}
+	
 </script>
 </head>
-<body>
+<body onload="init()">
 	<%@ include file="../menu.jsp" %><br/>
 	<form id="listForm" action="list.action" method="post">
 		合同号：<input type="text" name="name" style="width: 120px" value="${commodities.name }" /> 
@@ -190,7 +221,7 @@
 				<input type="submit" value="搜索" style="background-color: #173e65; color: #ffffff; width: 70px;"><br />
 
 		<!-- 显示错误信息 -->
-		<c:if test="${errorMsg}">
+		<c:if test="${errorMsg!=null}">
 			<font color="red">${errorMsg}</font>
 			<br />
 		</c:if>
@@ -212,13 +243,14 @@
 			</tr>
 			<c:forEach items="${list}" var="item" varStatus="status">
 				<tr>
-					<td>${status.index+1}</td><td><a href="#">${item.barCode}</a></td>
+					<td>${status.index+1}</td><td>
+					<a href="#" onclick="getContractDetail('${item.contractId}')">${item.barCode}</a></td>
 					<td>${item.retailerName }</td>
 					<td>
 						<c:if test="${item.type==1 }">
 							<font color="blue">省外</font>
 						</c:if>
-						<c:if test="${item.type=0 }">
+						<c:if test="${item.type==0 }">
 							<font color="green">省内</font>
 						</c:if>
 					</td>
@@ -226,8 +258,8 @@
 					<td>${item.createTime }</td>
 					<td>
 						<a onclick="editContract('${item.contractId}')">编辑</a>
-						<a onclick="deleteContract('${item.contractId}')">删除</a>
-						<form id="deleteFrom" action="delete.action" method="post">
+						<a onclick="deleteContract('${item.contractId}','${item.barCode}')">删除</a>
+						<form id="deleteForm" action="delete.action" method="post">
 							<input type="hidden" name="contractId" id="dContractId"/>
 							<input type="hidden" name="startPage" id="dStartPage"/>
 							<input type="hidden" name="currentPage" id="dCurrentPage"/>

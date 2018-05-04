@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.fruitsalesplatform.entity.Contract;
+import com.fruitsalesplatform.entity.ContractVo;
 import com.fruitsalesplatform.entity.MiddleTab;
 
 public interface ContractService {
 	public Contract get(Serializable id);
 	@SuppressWarnings("rawtypes")
-	public List<Contract> find(Map map);
-	public void insert(Contract contract);
+	public List<ContractVo> findContractList(Map map);
+	public void insert(Contract contract,String[] commoditiesIdArrays,String[] priceArrays);
 	public void insertMiddleTab(MiddleTab middleTab);
 	public void update(Contract contract);
 	public void deleteById(Serializable id);

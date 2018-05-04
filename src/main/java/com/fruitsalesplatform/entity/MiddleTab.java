@@ -4,7 +4,7 @@ public class MiddleTab {
 	private String middleId;
 	private String contractId;
 	private String fruitId;
-	private int number;
+	private Double number;
 
 	public String getMiddleId() {
 		return middleId;
@@ -30,11 +30,11 @@ public class MiddleTab {
 		this.fruitId = fruitId;
 	}
 
-	public int getNumber() {
+	public Double getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Double number) {
 		this.number = number;
 	}
 

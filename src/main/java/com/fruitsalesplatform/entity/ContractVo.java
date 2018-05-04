@@ -1,6 +1,6 @@
 package com.fruitsalesplatform.entity;
 
-public class ContractVo {
+public class ContractVo extends PageEntity  {
 	private String contractId;
 	private String barCode;
 	private String retailerName;

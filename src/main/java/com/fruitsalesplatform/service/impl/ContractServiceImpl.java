@@ -3,12 +3,14 @@ package com.fruitsalesplatform.service.impl;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fruitsalesplatform.dao.ContractDao;
 import com.fruitsalesplatform.entity.Contract;
+import com.fruitsalesplatform.entity.ContractVo;
 import com.fruitsalesplatform.entity.MiddleTab;
 import com.fruitsalesplatform.service.ContractService;
 
@@ -25,13 +27,8 @@ public class ContractServiceImpl implements ContractService {
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List<Contract> find(Map map) {
-		return contractDao.find(map);
-	}
-
-	@Override
-	public void insert(Contract contract) {
-		contractDao.insert(contract);
+	public List<ContractVo> findContractList(Map map) {
+		return contractDao.findContractList(map);
 	}
 
 	@Override
@@ -46,6 +43,7 @@ public class ContractServiceImpl implements ContractService {
 
 	@Override
 	public void deleteById(Serializable id) {
+		contractDao.deleteMiddleTabByContractId(id);
 		contractDao.deleteById(id);
 	}
 
@@ -63,6 +61,21 @@ public class ContractServiceImpl implements ContractService {
 	@Override
 	public String getMaxBarCode() {
 		return contractDao.getMaxBarCode();
+	}
+
+	@Override
+	public void insert(Contract contract, String[] commoditiesIdArrays, String[] priceArrays) {
+		contractDao.insert(contract);
+		// 保存中间信息
+		for(int i=0;i<commoditiesIdArrays.length;i++) {
+			MiddleTab middleTab = new MiddleTab();
+			middleTab.setMiddleId(UUID.randomUUID().toString());
+			middleTab.setContractId(contract.getContractId());
+			middleTab.setFruitId(commoditiesIdArrays[i]);
+			Double number = Double.parseDouble((priceArrays==null||priceArrays.length-1<i||priceArrays[i]==null||priceArrays[i].equals(""))?"0":priceArrays[i]);
+			middleTab.setNumber(number);
+			this.insertMiddleTab(middleTab);
+		}
 	}
 
 }

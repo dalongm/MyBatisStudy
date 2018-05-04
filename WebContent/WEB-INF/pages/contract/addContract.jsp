@@ -64,6 +64,13 @@
 	}
 	
 	function checkAddContract(){
+		var oprice = document.getElementsByName("priceArrays");
+		var ocommoditeis = document.getElementsByName("commoditiesIdArrays");
+		if(oprice&&ocommoditeis&&oprice.length!=0&&oprice.length==ocommoditeis.length){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	function changeType(){
@@ -166,7 +173,6 @@
 	}
 	
 	function selectCommodities(){
-		$("#commodities_info").html(""); // 将原来的信息清空
 		var myArray = new Array();
 		var len = 0;
 		var arrays=document.getElementsByName("arrays");
@@ -175,8 +181,10 @@
 				myArray[len++] = arrays[i].value;
 			}
 		}
-		
-		
+		if(len==0){
+			return;	
+		}
+		$("#commodities_info").html(""); // 将原来的信息清空
 		$.ajax({
 			type:'post',
 			url:'${pageContext.request.contextPath}/contract/getCommoditiesAndAccessory.action',
@@ -205,8 +213,8 @@
 						"<td>"+commodities.price+"元/斤</td>"+
 						"<td>"+commodities.locality+"</td>"+
 						"<td>"+accessoryStr+"</td>"+
-						"<td><input type='number' min='0.0' step='0.01' style='width:50px' name='priceArrays'/>斤</td>"+
-						"</tr><input type='hidden' name='commoditiesIdArray' value='"+commodities.fruitId+"'/>";
+						"<td><input type='number' min='0.0' step='0.01' style='width:50px' value='0.0' name='priceArrays'/>斤</td>"+
+						"</tr><input type='hidden' name='commoditiesIdArrays' value='"+commodities.fruitId+"'/>";
 					$("#commodities_info").html(oldHtml+info);
 				}
 				
@@ -217,6 +225,28 @@
 				$("#commodities_info").css("display","block");
 			},error:function(data){alert("通信异常！")}
 		});
+	}
+	
+	function submitForm(){
+		if(checkAddContract()){
+			$.ajax({  
+	            type: "POST",   //提交的方法
+	            url:"add.action", //提交的地址  
+	            data:$('#addContractForm').serialize(),// 序列化表单值  
+	            async: false,  
+	            error: function(request) {  //失败的话
+	                 alert("提交失败！");  
+	            },  
+	            success: function(data) {  //成功
+	                 //alert(data);  //就将返回的数据显示出来
+	                 //var url="${pageContext.request.contextPath}/accessory/list.action?fruitId="+id;
+	                 alert("提交成功！");
+	                 window.location.href="toAddPage.action"; 
+	            }  
+	         });
+		}else{
+			alert("提交失败，请检查表单！");
+		}
 	}
 </script>
 </head>
@@ -253,7 +283,7 @@
 				<option value="1">省外</option>
 				<option value="0">省内</option>
 			</select> 
-			<input type="hidden" name="type" id="type" value="0" /><br/>
+			<input type="hidden" name="type" id="type" value="1" /><br/>
 			<div class="info">
 				零售商信息：
 				<input type="button" value="关联" class="btn btn-div" onclick="addRetailer(null)" style="float:right"><br/>
@@ -271,8 +301,11 @@
 					
 				</div>
 			</div>
-		<input type="submit" value="提交" class="btn"/>
+		<input type="button" value="提交" class="btn" onclick="submitForm()"/>
 	</form>
+	<c:if test="${resultMessage!=null}">
+		<br/><font color="red">${resultMessage}</font>
+	</c:if>
 </body>
 </html>
 
