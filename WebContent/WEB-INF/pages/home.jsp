@@ -11,7 +11,7 @@
 </head>
 <body>
 	<%@ include file="menu.jsp" %>
-	<h3>欢迎您，${user.name}</h3>
+	<%-- <h3>欢迎您，${user.name}</h3> --%>
 	<%-- <%
 	if(session.getAttribute("user") != null)
 	{

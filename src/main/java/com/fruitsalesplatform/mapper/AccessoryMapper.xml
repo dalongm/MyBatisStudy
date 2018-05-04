@@ -89,7 +89,7 @@
 	<update id="update" parameterType="com.fruitsalesplatform.entity.Accessory">
 		UPDATE accessory
 		<set>
-			<if test="fruitId!=null">fruitid=#{address,fruitId=VARCHAR},</if>
+			<if test="fruitId!=null">fruitid=#{address,jdbcType=VARCHAR},</if>
 			<if test="name!=null">name=#{name,jdbcType=VARCHAR},</if>
 			<if test="price!=null">price=#{price,jdbcType=DOUBLE},</if>
 			<if test="createTime!=null">createTime=#{createTime,jdbcType=TIMESTAMP},</if>
