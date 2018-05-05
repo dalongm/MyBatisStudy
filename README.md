@@ -30,7 +30,9 @@
 + [ ] 第10章
 + [x] [第11章](https://github.com/dalongm/MybatisStudy/tree/chapter11)
 + [x] [第12章](https://github.com/dalongm/MybatisStudy/tree/chapter12)
-+ [ ] 第13-15章
++ [x] [第13章](https://github.com/dalongm/MybatisStudy/tree/chapter13)
++ [x] [第14章](https://github.com/dalongm/MybatisStudy/tree/chapter14)
++ [ ] 第15章
 + [x] [第16章](https://github.com/dalongm/MybatisStudy/tree/chapter16)
 + [x] [第17章](https://github.com/dalongm/MybatisStudy/tree/chapter17)
 + [x] [第18章](https://github.com/dalongm/MybatisStudy/tree/chapter18)
