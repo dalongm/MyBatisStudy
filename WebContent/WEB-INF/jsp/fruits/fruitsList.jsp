@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h3>新鲜水果</h3>
+	<a href="${pageContext.request.contextPath}/user/loginout.action">注销</a>
 	<table width="300px;" border=1>
 		<tr>
 			<td>名称</td>

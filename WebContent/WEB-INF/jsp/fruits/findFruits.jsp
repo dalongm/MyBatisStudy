@@ -84,6 +84,7 @@
 		</table><br/>
 		<input type="submit" value="批量测试提交"/>
 	</form>
+	<a href="${pageContext.request.contextPath}/user/loginout.action">注销</a>
 </body>
 </html>
 

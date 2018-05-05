@@ -72,6 +72,22 @@
 	
 	<!-- 方法二 -->
 	<context:component-scan base-package="cn.com.mvc.controller"></context:component-scan>
+	
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="cn.com.mvc.interceptor.HandlerInterceptorDemo1"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="cn.com.mvc.interceptor.HandlerInterceptorDemo2"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="cn.com.mvc.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
 
 

@@ -1,7 +1,10 @@
 package cn.com.mvc.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -39,7 +42,7 @@ public class UserControllerTest {
 	 * @return
 	 */
 	@RequestMapping("login")
-	public String login(Model model, @Valid User user, BindingResult result) {
+	public String login(Model model,HttpServletRequest request, @Valid User user, BindingResult result) {
 		// 登录检测
 		List<ObjectError> allErrors = null;
 		if(result.hasErrors())
@@ -51,7 +54,31 @@ public class UserControllerTest {
 			model.addAttribute("allErrors",allErrors);
 			return "/user/login";
 		}
+		boolean flag = checkUser(user);
+		if(flag) {
+			request.getSession().setAttribute("user", user);
+		}else {
+			model.addAttribute("errorMsg", "账号或密码错误");
+			return "/user/login";
+		}
 		return "/user/loginSuccess";
+	}
+
+	@RequestMapping("loginout")
+	public String loginout(Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user")!=null) {
+			request.getSession().removeAttribute("user");
+		}else{
+			model.addAttribute("errorMsg", "注销失败！用户已注销");
+		}
+		return "/user/login";
+	}
+	
+	private boolean checkUser(User user) {
+		if(user.getUsername().equals("zhangsan")&&user.getPassword().equals("123456")) {
+			return true;
+		}
+		return false;
 	}
 	
 }

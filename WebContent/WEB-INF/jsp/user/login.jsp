@@ -18,6 +18,9 @@
 				<br/><font color="red">${error.defaultMessage}</font>
 			</c:forEach>
 		</c:if>
+		<c:if test="${errorMsg!=null}">
+			<br/><font color="red">${errorMsg}</font>
+		</c:if>
 	</form>
 </body>
 </html>
