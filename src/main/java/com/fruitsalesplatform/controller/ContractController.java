@@ -149,6 +149,31 @@ public class ContractController extends BaseController {
 		return "/contract/contractDetail.jsp";
 	}
 	
+	@RequestMapping("/contract/editContract.action")
+	public String editContract(Model model, String contractId) {
+		Contract contract = contractService.get(contractId);
+		model.addAttribute("contract", contract);
+		return "/contract/editContract.jsp";
+	}
+	
+	
+	@RequestMapping("/contract/update.action")
+	public String update(Model model, Contract contract, String retailerId, String[] commoditiesIdArrays,
+			String[] priceArrays) {
+
+		if(commoditiesIdArrays!=null&&priceArrays!=null&&contract.getContractId()!=null)
+		{
+			contract.setRetailer(retailerService.get(retailerId));
+			//String barCode = getCode();
+			//contract.setBarCode(barCode);
+			// contract.setContractId(UUID.randomUUID().toString());
+			// contract.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			contractService.update(contract,commoditiesIdArrays,priceArrays);
+			model.addAttribute("resultMessage", "更新成功！合同编号为"+contract.getBarCode());
+		}
+		return "/contract/editContract.jsp";
+	}
+	
 	private String getCode() {
 		String codeHead = new SimpleDateFormat("yyyyMMdd").format(new Date());
 		String barCode = "";

@@ -15,6 +15,7 @@ public interface ContractDao extends BaseDao<Contract> {
 	@SuppressWarnings("rawtypes")
 	public List<ContractVo> findContractList(Map map);
 	public void insertMiddleTab(MiddleTab middleTab);
+	public void updateMiddleTab(MiddleTab middleTab);
 	public int deleteMiddleTabByContractId(Serializable contractId);
 	public String getMaxBarCode();
 }

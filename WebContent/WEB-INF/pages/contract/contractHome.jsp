@@ -177,6 +177,11 @@
 		window.open(url,"合同详情","height=700,width=700,scrollbars=yes");
 	}
 	
+	function editContract(id){
+		var url = "${pageContext.request.contextPath}/contract/editContract.action?contractId="+id;
+		window.open(url,"合同详情","height=700,width=700,scrollbars=yes");
+	}
+	
 	function deleteContract(contractId, barCode){
 		if(window.confirm("你确定要删除编号为"+barCode+"的合同信息吗？")){
 			$("#dContractId").val(contractId);

@@ -49,4 +49,10 @@ public class ContractDaoImpl extends BaseDaoImpl<Contract> implements ContractDa
 		return this.getSqlSession().selectOne(this.getNs()+".getMaxBarCode");
 	}
 
+
+	@Override
+	public void updateMiddleTab(MiddleTab middleTab) {
+		this.getSqlSession().insert(this.getNs()+".updateMiddleTab",middleTab);
+	}
+
 }

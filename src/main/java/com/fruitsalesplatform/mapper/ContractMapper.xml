@@ -116,6 +116,8 @@
 		)
 	</insert>
 	
+	
+	
 	<!-- 中间表插入 -->
 	<insert id="insertMiddleTab" parameterType="com.fruitsalesplatform.entity.MiddleTab">
 		INSERT INTO middle_tab
@@ -128,14 +130,24 @@
 		)
 	</insert>
 	
+	<!-- 中间表更新 -->
+	<update id="updateMiddleTab" parameterType="com.fruitsalesplatform.entity.MiddleTab">
+		UPDATE middle_tab
+		<set>
+			<if test="fruitId!=null">fruitid = #{fruitId,jdbcType=VARCHAR},</if>
+			<if test="number!=null">number = #{number,jdbcType=DOUBLE}</if>
+		</set>
+		WHERE contractid=#{contractId,jdbcType=VARCHAR}
+	</update>
+	
 	<!-- 修改数据 -->
 	<update id="update" parameterType="com.fruitsalesplatform.entity.Contract">
 		UPDATE contract
 		<set>
-			<if test="retailerId!=null">retailerid=#{retailerId,jdbcType=VARCHAR},</if>
+			<if test="retailer.retailerId!=null">retailerid=#{retailer.retailerId,jdbcType=VARCHAR},</if>
 			<if test="type!=null">type=#{type,jdbcType=VARCHAR},</if>
 		</set>
-		WHERE contractid=#{contractId}
+		WHERE contractid=#{contractId,jdbcType=VARCHAR}
 	</update>
 	
 	<!-- 删除合同下面所有货物信息 -->

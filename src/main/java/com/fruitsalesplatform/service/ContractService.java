@@ -14,7 +14,8 @@ public interface ContractService {
 	public List<ContractVo> findContractList(Map map);
 	public void insert(Contract contract,String[] commoditiesIdArrays,String[] priceArrays);
 	public void insertMiddleTab(MiddleTab middleTab);
-	public void update(Contract contract);
+	public void updateMiddleTab(MiddleTab middleTab);
+	public void update(Contract contract,String[] commoditiesIdArrays,String[] priceArrays);
 	public void deleteById(Serializable id);
 	public void deleteMiddleTabByContractId(Serializable id);
 	

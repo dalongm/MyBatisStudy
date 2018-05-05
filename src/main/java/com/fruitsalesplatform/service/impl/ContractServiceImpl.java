@@ -37,11 +37,6 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public void update(Contract contract) {
-		contractDao.update(contract);
-	}
-
-	@Override
 	public void deleteById(Serializable id) {
 		contractDao.deleteMiddleTabByContractId(id);
 		contractDao.deleteById(id);
@@ -66,6 +61,27 @@ public class ContractServiceImpl implements ContractService {
 	@Override
 	public void insert(Contract contract, String[] commoditiesIdArrays, String[] priceArrays) {
 		contractDao.insert(contract);
+		// 保存中间信息
+		for(int i=0;i<commoditiesIdArrays.length;i++) {
+			MiddleTab middleTab = new MiddleTab();
+			middleTab.setMiddleId(UUID.randomUUID().toString());
+			middleTab.setContractId(contract.getContractId());
+			middleTab.setFruitId(commoditiesIdArrays[i]);
+			Double number = Double.parseDouble((priceArrays==null||priceArrays.length-1<i||priceArrays[i]==null||priceArrays[i].equals(""))?"0":priceArrays[i]);
+			middleTab.setNumber(number);
+			this.insertMiddleTab(middleTab);
+		}
+	}
+
+	@Override
+	public void updateMiddleTab(MiddleTab middleTab) {
+		contractDao.updateMiddleTab(middleTab);
+	}
+
+	@Override
+	public void update(Contract contract, String[] commoditiesIdArrays, String[] priceArrays) {
+		contractDao.update(contract);
+		contractDao.deleteMiddleTabByContractId(contract.getContractId());
 		// 保存中间信息
 		for(int i=0;i<commoditiesIdArrays.length;i++) {
 			MiddleTab middleTab = new MiddleTab();
