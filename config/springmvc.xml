@@ -35,12 +35,14 @@
 	<!-- 配置注解映射器和适配器 -->
 	<!-- 方法一 -->
 	<!-- 注解映射器 -->
-	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
-	<!-- 注解适配器 -->
+<!-- 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+ -->	<!-- 注解适配器 -->
 	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
 	
 	<!-- 方法二 -->
 	<mvc:annotation-driven conversion-service="conversionService" validator="validator"></mvc:annotation-driven>
+	
+	
 	
 	<!-- 校验器 -->
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
@@ -60,6 +62,25 @@
 		<property name="fileEncodings" value="utf-8"/>
 		<property name="cacheSeconds" value="120"/>
 	</bean>
+	
+	<!-- ResponseBody,RequestBody支持 -->
+	<!-- mvc:annotation-driven默认启用 -->
+	<!-- 注意spring mvc 与 jackson 版本 -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+	    <property name="messageConverters">  
+	        <list>  
+	            <ref bean="jsonHttpMessageConverter" />  
+	        </list>  
+	    </property>  
+	</bean>  
+  
+	<bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+	    <property name="supportedMediaTypes">  
+	        <list>  
+	            <value>application/json;charset=UTF-8</value>  
+	        </list>  
+	    </property>  
+	</bean> -->
 	
 	<!-- 配置一个可以将字符串转化为Date类型或数字类型的Java类 
 		<mvc:annotation-driven/>默认启用
@@ -88,6 +109,10 @@
 			<bean class="cn.com.mvc.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/images/" mapping="/images/**"/>
+	<mvc:resources location="/css/" mapping="/css/**"/>
 </beans>
 
 
