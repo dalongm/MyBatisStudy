@@ -2,7 +2,7 @@
 
 根据[《Spring MVC+MyBatis开发 从入门到项目实战》](https://item.jd.com/12308496.html)一书示例代码更新而来，并添加关键代码注释。
 
-## Spring MVC与MyBatis项目实战
+## 部署说明
 
 ### 数据库设置
 
@@ -17,7 +17,9 @@
 + Mysql 5.7
 + Maven 3.5.3
 
-### 包含章节
+## 章节示例
+
+### Mybatis技术入门
 
 + [ ] 第1-2章
 + [x] [第3章](https://github.com/dalongm/MybatisStudy/tree/master)
@@ -25,6 +27,9 @@
 + [x] [第5章](https://github.com/dalongm/MybatisStudy/tree/chapter5)
 + [x] [第6章](https://github.com/dalongm/MybatisStudy/tree/chapter6)
 + [x] [第7章](https://github.com/dalongm/MybatisStudy/tree/chapter7)
+
+### Spring MVC技术入门
+
 + [x] [第8章](https://github.com/dalongm/MybatisStudy/tree/chapter8)
 + [x] [第9章](https://github.com/dalongm/MybatisStudy/tree/chapter9)
 + [ ] 第10章
@@ -32,6 +37,9 @@
 + [x] [第12章](https://github.com/dalongm/MybatisStudy/tree/chapter12)
 + [x] [第13章](https://github.com/dalongm/MybatisStudy/tree/chapter13)
 + [x] [第14章](https://github.com/dalongm/MybatisStudy/tree/chapter14)
+
+### Spring MVC与MyBatis项目实战
+
 + [ ] 第15章
 + [x] [第16章](https://github.com/dalongm/MybatisStudy/tree/chapter16)
 + [x] [第17章](https://github.com/dalongm/MybatisStudy/tree/chapter17)
