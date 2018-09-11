@@ -17,7 +17,9 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     
     <!-- 1.扫描controller包 -->
-	<context:component-scan base-package="com.fruitsalesplatform.controller"></context:component-scan>
+	<context:component-scan base-package="com.fruitsalesplatform.controller">
+
+	</context:component-scan>
 	
 	<!-- 2.内部资源视图解析器，suffix为空，方便跟参数 url?id=xxx -->
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

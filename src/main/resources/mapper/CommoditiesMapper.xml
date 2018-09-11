@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fruitsalesplatform.mapper.CommoditiesMapper">
+	<!-- resultMap映射 -->
+	<resultMap type="com.fruitsalesplatform.entity.Commodities" id="commoditiesRM">
+		<!-- 主键 -->
+		<id property="fruitId" column="fruitid" jdbcType="VARCHAR"/>
+		<result property="name" column="name"/>
+		<result property="price" column="price"/>
+		<result property="locality" column="locality"/>
+		<result property="createTime" column="createtime"/>
+	</resultMap>
+	
+	<!-- 查询一个数据 -->
+	<select id="get" parameterType="map" resultMap="commoditiesRM">
+		SELECT * FROM commodities WHERE fruitid=#{fruitId}
+	</select>
+	
+	<!-- SQL片段 -->
+	<sql id="query_commodities_where">
+		<if test="name!=null">AND name LIKE #{name}</if>
+		<if test="price!=null">AND price = #{price}</if>
+		
+		<if test="startPrice!=null"> 
+			<![CDATA[ 
+				AND price >=#{startPrice}
+			]]>
+		</if>
+		
+		<if test="endPrice!=null"> 
+			<![CDATA[ 
+				AND price <=#{endPrice}
+			]]>
+		</if>
+		
+		<if test="locality!=null">AND locality LIKE #{locality}</if>
+		
+		<if test="createTime!=null">
+			AND createtime = DATE_FORMAT(#{createTime}, '%Y-%m-%d %H:%i:%s')
+		</if>
+		<if test="startTime!=null">
+			<![CDATA[ 
+				AND createtime >= DATE_FORMAT(#{startTime}, '%Y-%m-%d %H:%i:%s')
+			]]>
+		</if>
+		<if test="endTime!=null">
+			<![CDATA[ 
+				AND createtime <= DATE_FORMAT(#{endTime}, '%Y-%m-%d %H:%i:%s')
+			]]>
+		</if>
+	</sql>
+	
+	<!-- 查询 -->
+	<select id="find" parameterType="map" resultMap="commoditiesRM">
+		SELECT * FROM commodities
+		<where>
+			<include refid="query_commodities_where"/>
+		</where>
+		<if test="startPage!=null and pageSize!=null">LIMIT #{startPage},#{pageSize} </if>
+	</select>
+	
+	<!-- 统计数量 -->
+	<select id="count" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM commodities
+		<where>
+			<include refid="query_commodities_where"></include>
+		</where>
+	</select>
+	
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="com.fruitsalesplatform.entity.Commodities">
+		INSERT INTO commodities
+		(fruitid, name, price, locality, createtime)
+		VALUES
+		(
+			#{fruitId,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{price,jdbcType=DOUBLE},
+			#{locality,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterType="com.fruitsalesplatform.entity.Commodities">
+		UPDATE commodities
+		<set>
+			<if test="locality!=null">locality=#{locality,jdbcType=VARCHAR},</if>
+			<if test="name!=null">name=#{name,jdbcType=VARCHAR},</if>
+			<if test="price!=null">price=#{price,jdbcType=DOUBLE},</if>
+			<if test="createTime!=null">createTime=#{createTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		WHERE fruitid=#{fruitId}
+	</update>
+	
+	<!-- 删除一条 -->
+	<delete id="deleteById" parameterType="string">
+		DELETE FROM commodities
+		WHERE fruitid=#{fruitId}
+	</delete>
+	
+	<!-- 删除多条 -->
+	<delete id="delete" parameterType="string">
+		DELETE FROM commodities
+		WHERE fruitid IN
+		<foreach collection="array" item="fruitId" open="(" close=")" separator=",">
+			#{fruitId}
+		</foreach>
+	</delete>
+</mapper>

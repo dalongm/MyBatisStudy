@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fruitsalesplatform.mapper.ContractMapper">
+	<!-- resultMap映射 -->
+	<resultMap type="com.fruitsalesplatform.entity.ContractVo" id="contractVoRM">
+		<!-- 主键 -->
+		<id property="contractId" column="contractid" jdbcType="VARCHAR"/>
+		<result property="barCode" column="barCode" jdbcType="VARCHAR"/>
+		<result property="type" column="type" jdbcType="INTEGER"/>
+		<result property="retailerName" column="retailer_name" jdbcType="VARCHAR"/>
+		<result property="createTime" column="createtime"/>
+	</resultMap>
+		
+	<!-- SQL片段 -->
+	<sql id="query_contract_where">
+		<if test="barCode!=null">AND t.barcode = #{barCode}</if>
+		<if test="type!=null">AND t.type = #{type}</if>
+		
+		<if test="createTime!=null">
+			AND t.createtime = to_date(#{createTime}, 'yyyy-MM-dd HH:mm:ss')
+		</if>
+		
+		<if test="startTime!=null">
+			<![CDATA[ 
+				AND t.createtime >= to_date(#{startTime}, 'yyyy-MM-dd HH:mm:ss')
+			]]>
+		</if>
+		<if test="endTime!=null">
+			<![CDATA[ 
+				AND t.createtime <= to_date(#{endTime}, 'yyyy-MM-dd HH:mm:ss')
+			]]>
+		</if>
+	</sql>
+	
+	<!-- 查询 -->
+	<select id="find" parameterType="map" resultMap="contractVoRM">
+		SELECT t.contractid, t.barcode, t.createtime,t.type,r.name as retailer_name 
+		FROM contract t left join retailer r
+		on t.retailerid = r.retailerid
+		<where>
+			<include refid="query_contract_where"/>
+		</where>
+		<if test="retailerName!=null">and r.name LIKE #{retailerName}</if>
+		<if test="startPage!=null and pageSize!=null">LIMIT #{startPage},#{pageSize} </if>
+	</select>
+	
+	<!-- 统计数量 -->
+	<select id="count" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM contract t
+		<where>
+			<include refid="query_contract_where"></include>
+		</where>
+	</select>
+	
+	
+	<resultMap type="com.fruitsalesplatform.entity.Contract" id="ContractRM">
+		<!-- 主键 -->
+		<id property="contractId" column="contractid" jdbcType="VARCHAR"/>
+		<result property="barCode" column="barcode" jdbcType="VARCHAR"/>
+		<result property="type" column="type" jdbcType="INTEGER"/>
+		<result property="createTime" column="createtime"/>
+		
+		<association property="retailer" javaType="com.fruitsalesplatform.entity.Retailer">
+			<id property="retailerId" column="retailerid" jdbcType="VARCHAR"/>
+			<result property="name" column="retailer_name" jdbcType="VARCHAR"/>
+			<result property="telephone" column="telephone" jdbcType="VARCHAR"/>
+			<result property="address" column="address" jdbcType="VARCHAR"/>
+		</association>
+		
+		<collection property="commoditiesList" ofType="com.fruitsalesplatform.entity.CommoditiesVo">
+			<id property="fruitId" column="fruitid" jdbcType="VARCHAR"/>
+			<result property="name" column="fruit_name" jdbcType="VARCHAR"/>
+			<result property="price" column="price" jdbcType="DOUBLE"/>
+			<result property="locality" column="locality" jdbcType="VARCHAR"/>
+			<result property="number" column="number" jdbcType="DOUBLE"/>
+			<collection property="accessoryList" ofType="com.fruitsalesplatform.entity.Accessory">
+				<result property="name" column="accessory_name" jdbcType="VARCHAR"/>
+				<result property="price" column="accessory_price" jdbcType="DOUBLE"/>
+			</collection>
+		</collection>
+		
+	</resultMap>
+	
+	<!-- 查询一个数据 --><!-- /(ㄒoㄒ)/~~ -->
+	<select id="get" parameterType="string" resultMap="ContractRM">
+		SELECT t.contractid, t.barcode,t.createtime,t.type,
+		r.retailerid,r.name AS retailer_name, r.telephone,r.address,
+		mdl.fruitid,mdl.fruit_name,mdl.price,mdl.locality,mdl.number,
+		mdl.accessory_name,mdl.accessory_price
+		FROM(
+			SELECT c.fruitid, c.name as fruit_name, c.price, c.locality,
+			m.number, a.name as accessory_name, a.price as accessory_price
+			FROM middle_tab m LEFT JOIN commodities c
+			ON m.fruitid = c.fruitid
+			LEFT JOIN accessory a ON a.fruitid=m.fruitid
+			WHERE m.contractid = #{contractId}
+		) mdl, contract t LEFT JOIN retailer r
+		ON t.retailerid = r.retailerid
+		WHERE t.contractid = #{contractId}
+	</select>
+	
+	
+	<!-- 新增购销合同-->
+	<insert id="insert" parameterType="com.fruitsalesplatform.entity.Contract">
+		INSERT INTO contract
+		(contractid, barcode, type, retailerid, createtime)
+		VALUES
+		(
+			#{contractId,jdbcType=VARCHAR},
+			#{barCode,jdbcType=VARCHAR},
+			#{type,jdbcType=INTEGER},
+			#{retailer.retailerId,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	
+	
+	<!-- 中间表插入 -->
+	<insert id="insertMiddleTab" parameterType="com.fruitsalesplatform.entity.MiddleTab">
+		INSERT INTO middle_tab
+		(middleid, contractid,fruitid,number)
+		VALUES(
+			#{middleId,jdbcType=VARCHAR},
+			#{contractId,jdbcType=VARCHAR},
+			#{fruitId,jdbcType=VARCHAR},
+			#{number,jdbcType=DOUBLE}
+		)
+	</insert>
+	
+	<!-- 中间表更新 -->
+	<update id="updateMiddleTab" parameterType="com.fruitsalesplatform.entity.MiddleTab">
+		UPDATE middle_tab
+		<set>
+			<if test="fruitId!=null">fruitid = #{fruitId,jdbcType=VARCHAR},</if>
+			<if test="number!=null">number = #{number,jdbcType=DOUBLE}</if>
+		</set>
+		WHERE contractid=#{contractId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterType="com.fruitsalesplatform.entity.Contract">
+		UPDATE contract
+		<set>
+			<if test="retailer.retailerId!=null">retailerid=#{retailer.retailerId,jdbcType=VARCHAR},</if>
+			<if test="type!=null">type=#{type,jdbcType=VARCHAR},</if>
+		</set>
+		WHERE contractid=#{contractId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 删除合同下面所有货物信息 -->
+	<delete id="deleteMiddleTabById" parameterType="string">
+		DELETE FROM middle_tab
+		WHERE contractid=#{contractId}
+	</delete>
+	
+	<!-- 删除一条合同 -->
+	<delete id="deleteById" parameterType="string">
+		DELETE FROM contract
+		WHERE contractid=#{contractId}
+	</delete>
+	
+	<!-- 删除多条货物信息  -->
+	<delete id="deleteMiddleTab" parameterType="string">
+		DELETE FROM middle_tab
+		WHERE contractid IN
+		<foreach collection="array" item="contractId" open="(" close=")" separator=",">
+			#{contractId}
+		</foreach>
+	</delete>
+	
+	<!-- 删除多条合同 -->
+	<delete id="delete" parameterType="string">
+		DELETE FROM contract
+		WHERE contractid IN
+		<foreach collection="array" item="contractId" open="(" close=")" separator=",">
+			#{contractId}
+		</foreach>
+	</delete>
+	
+	<!-- 获取最大合同编号 -->
+	<select id="getMaxBarCode" resultType="string">
+		select MAX(barcode) from contract
+	</select>
+	
+</mapper>
+
