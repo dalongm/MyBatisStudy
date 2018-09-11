@@ -11,7 +11,7 @@
 
 ### 运行环境
 
-+ Eclipse Oxygen
++ Eclipse Oxygen/IntelliJ IDEA
 + JDK 1.8
 + Tomcat 8.0
 + Mysql 5.7
