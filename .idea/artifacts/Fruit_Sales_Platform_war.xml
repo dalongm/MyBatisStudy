@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Fruit-Sales-Platform:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Fruit-Sales-Platform-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Fruit-Sales-Platform:war exploded" />
+    </root>
+  </artifact>
+</component>
